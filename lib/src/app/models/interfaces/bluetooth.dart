@@ -1,11 +1,11 @@
 import 'dart:typed_data';
 
-abstract class Bluetooth {
-  BTDevice connectedDevice;
+abstract class BluetoothInterface {
+  Future<BTDevice> connectedDevice;
+
+  bool isReady();
 
   bool get isConnected => false;
-
-  Future<bool> isEnabled();
 
   Future<List<BTDevice>> scan(Duration duration);
 
@@ -13,12 +13,17 @@ abstract class Bluetooth {
 
   Future<void> disconnect();
 
-  Stream<Uint8List> receive();
-
   Future<dynamic> send(Uint8List data);
+
+  Stream<Uint8List> receive();
 }
 
-abstract class BTDevice {
-  String name;
-  String address;
+class BTDevice {
+  final String _name;
+  final String _id;
+
+  BTDevice(this._name, this._id);
+
+  String get name => _name;
+  String get id => _id;
 }
