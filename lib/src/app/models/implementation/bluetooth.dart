@@ -5,8 +5,8 @@ import 'package:mobile_app/src/app/models/interfaces/bluetooth.dart';
 
 class Bluetooth implements BluetoothInterface {
   final _bluetoothService = FlutterReactiveBle();
-  DeviceConnectionState _connectionStatus;
-  StreamSubscription<ConnectionStateUpdate> _connection;
+  late DeviceConnectionState _connectionStatus;
+  late StreamSubscription<ConnectionStateUpdate> _connection;
 
   Bluetooth() {
     //_bluetoothService.statusStream.listen((status) {});
@@ -17,10 +17,12 @@ class Bluetooth implements BluetoothInterface {
   }
 
   @override
-  BTDevice selectedDevice;
+  late BTDevice selectedDevice;
 
   @override
-  bool isReady() => (_bluetoothService.status == BleStatus.ready);
+  bool isReady() {
+    return (_bluetoothService.status == BleStatus.ready);
+  }
 
   @override
   // TODO: implement isConnected
@@ -29,16 +31,25 @@ class Bluetooth implements BluetoothInterface {
 
   @override
   Future<List<BTDevice>> scan(Duration duration) async {
-    List<BTDevice> devices;
+    List<BTDevice> devices = [];
+    List<String> adresses = [];
+    StreamSubscription subscription;
 
-    await _bluetoothService.scanForDevices(
+    subscription = _bluetoothService.scanForDevices(
         withServices: [], scanMode: ScanMode.lowLatency).listen((device) {
-      devices.add(BTDevice(device.name, device.id));
-    }, onError: () {
+      String deviceName = device.name != "" ? device.name : "No name";
+      if (!adresses.contains(device.id)) {
+        adresses.add(device.id);
+        devices.add(BTDevice(deviceName, device.id));
+      }
+    }, onError: (error) {
+      print("scan error" + error);
       //code for handling error
-    }).asFuture();
+    });
 
-    return devices;
+    await Future.delayed(duration, () => {subscription.cancel()});
+    print(devices);
+    return devices.toSet().toList();
   }
 
   @override
@@ -63,13 +74,18 @@ class Bluetooth implements BluetoothInterface {
   @override
   Future send(Uint8List data) async {
     final characteristic = QualifiedCharacteristic(
-        serviceId: null, characteristicId: null, deviceId: selectedDevice.id);
+        serviceId: Uuid([0x1200]),
+        characteristicId: Uuid([0x1200]),
+        deviceId: selectedDevice.id);
     await _bluetoothService
         .writeCharacteristicWithResponse(characteristic, value: [0x00]);
   }
 
   @override
   Stream<List<int>> subscribe() {
-    return _bluetoothService.subscribeToCharacteristic(null);
+    return _bluetoothService.subscribeToCharacteristic(QualifiedCharacteristic(
+        serviceId: Uuid([0x1200]),
+        characteristicId: Uuid([0x1200]),
+        deviceId: selectedDevice.id));
   }
 }

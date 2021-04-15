@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 abstract class BluetoothInterface {
-  BTDevice selectedDevice;
+  late BTDevice selectedDevice;
 
   bool isReady();
 
@@ -19,11 +19,8 @@ abstract class BluetoothInterface {
 }
 
 class BTDevice {
-  final String _name;
-  final String _id;
+  final String? name;
+  final String id;
 
-  BTDevice(this._name, this._id);
-
-  String get name => _name;
-  String get id => _id;
+  BTDevice(this.name, this.id);
 }
