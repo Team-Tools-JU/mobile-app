@@ -5,7 +5,7 @@ import 'package:mobile_app/src/app/views/start/components/body.dart';
 import 'package:stacked/stacked.dart';
 
 class StartView extends StatelessWidget {
-  const StartView({Key key}) : super(key: key);
+  const StartView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

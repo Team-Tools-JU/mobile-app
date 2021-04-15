@@ -4,7 +4,7 @@ import '../start_view_model.dart';
 class Body extends StatelessWidget {
   final StartViewModel _model;
 
-  const Body(this._model, {Key key}) : super(key: key);
+  const Body(this._model, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
