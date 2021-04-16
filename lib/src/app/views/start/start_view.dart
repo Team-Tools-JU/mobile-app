@@ -17,6 +17,17 @@ class StartView extends StatelessWidget {
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Text("Mower-app"),
+          actions: <Widget> [
+            IconButton(
+              icon: const Icon(Icons.bluetooth),
+              color: Colors.black,
+              tooltip: 'Bluetooth status',
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Not connected')));
+              },
+            )
+          ],
         ),
         body: Body(model),
         floatingActionButton: FloatingActionButton(
