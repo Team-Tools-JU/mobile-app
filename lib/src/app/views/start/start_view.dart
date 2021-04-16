@@ -30,9 +30,18 @@ class StartView extends StatelessWidget {
           ],
         ),
         body: Body(model),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => model.incrementCounter(),
-          child: Icon(Icons.ac_unit),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem> [
+            BottomNavigationBarItem(icon: Icon(Icons.home),
+              label: 'Start',
+            ),
+            BottomNavigationBarItem(icon: Icon(Icons.settings),
+              label: 'Settings',
+            ),
+            BottomNavigationBarItem(icon: Icon(Icons.history),
+                label: 'History')
+          ],
+          selectedItemColor: Colors.amber[800],
         ),
       ),
     );
