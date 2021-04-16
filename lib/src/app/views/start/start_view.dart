@@ -24,7 +24,7 @@ class StartView extends StatelessWidget {
               tooltip: 'Bluetooth status',
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Not connected')));
+                    SnackBar(content: Text(model.updateBluetoothStatus())));
               },
             )
           ],

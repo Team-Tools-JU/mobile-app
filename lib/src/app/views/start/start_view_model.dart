@@ -1,17 +1,29 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 
-class StartViewModel extends BaseViewModel {
-  int _counter = 0;
+class StartViewModel extends ChangeNotifier {
 
-  int get counter => _counter;
+  String _bluetoothStatusText = 'default';
+  bool _isConnected = false;
 
-  void init() {}
+  String get bluetoothStatusText => _bluetoothStatusText;
 
-  void incrementCounter() {
-    _counter++;
+  void init() {
+    _bluetoothStatusText = 'initialised';
+    _isConnected = false;
     notifyListeners();
+  }
+
+  String updateBluetoothStatus() {
+    if (_isConnected) {
+      _bluetoothStatusText = 'Connected!';
+    } else {
+      _bluetoothStatusText = 'Not connected!';
+    }
+    notifyListeners();
+    return _bluetoothStatusText;
   }
 
   @override
