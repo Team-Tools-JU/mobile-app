@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../start_view_model.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 
 class Body extends StatelessWidget {
   final StartViewModel _model;
@@ -28,12 +30,11 @@ class Body extends StatelessWidget {
         // horizontal).
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          SpinKitFadingCircle(size: 100, color: Colors.grey),
+          SizedBox(height: 20),
           Text(
-            'You have pushed the button this many times:',
-          ),
-          Text(
-            '${_model.counter}',
-            style: Theme.of(context).textTheme.headline4,
+            'Trying to connect....',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],
       ),
