@@ -16,7 +16,7 @@ class StartView extends StatelessWidget {
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
-          title: Text("Start"),
+          title: Text("Mower-app"),
         ),
         body: Body(model),
         floatingActionButton: FloatingActionButton(
