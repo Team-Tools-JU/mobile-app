@@ -9,7 +9,7 @@ abstract class BluetoothInterface {
 
   Future<List<BTDevice>> scan(Duration duration);
 
-  Future<bool> connect(BTDevice device);
+  Future<void> connect(BTDevice device);
 
   Future<void> disconnect();
 

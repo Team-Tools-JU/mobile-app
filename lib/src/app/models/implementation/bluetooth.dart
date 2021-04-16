@@ -25,7 +25,6 @@ class Bluetooth implements BluetoothInterface {
   }
 
   @override
-  // TODO: implement isConnected
   bool get isConnected =>
       (_connectionStatus == DeviceConnectionState.connected);
 
@@ -48,22 +47,23 @@ class Bluetooth implements BluetoothInterface {
     });
 
     await Future.delayed(duration, () => {subscription.cancel()});
-    print(devices);
-    return devices.toSet().toList();
+    return devices;
   }
 
   @override
-  Future<bool> connect(BTDevice device) async {
+  Future<void> connect(BTDevice device) async {
     selectedDevice = device;
-    await _bluetoothService
+    _connection = _bluetoothService
         .connectToDevice(
             id: selectedDevice.id,
-            connectionTimeout: const Duration(seconds: 2))
-        .listen((connectionState) {}, onError: (Object error) {
+            connectionTimeout: const Duration(seconds: 5))
+        .listen((connectionState) {
+      print("connectionState changed: $connectionState");
+      print("_connectionStatus: $_connectionStatus");
+    }, onError: (Object error) {
       // Handle a possible error
-    }).asFuture();
-
-    return isConnected;
+    });
+    await Future.delayed(Duration(seconds: 5), () => {print(isConnected)});
   }
 
   @override
@@ -77,8 +77,8 @@ class Bluetooth implements BluetoothInterface {
         serviceId: Uuid([0x1200]),
         characteristicId: Uuid([0x1200]),
         deviceId: selectedDevice.id);
-    await _bluetoothService
-        .writeCharacteristicWithResponse(characteristic, value: [0x00]);
+    await _bluetoothService.writeCharacteristicWithResponse(characteristic,
+        value: data);
   }
 
   @override

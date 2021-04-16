@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/src/app/models/interfaces/bluetooth.dart';
-
 import 'package:mobile_app/src/app/views/connect/connect_view_model.dart';
 
 class Devices extends StatelessWidget {
@@ -18,8 +16,8 @@ class Devices extends StatelessWidget {
             child: TextButton(
                 onPressed: () async =>
                     this._model.connect(this._model.devices[index]),
-                // child: Text(this._model.devices[index].name ?? "No name"),
-                child: Text(this._model.devices[index].id)),
+                child: Text(this._model.devices[index].name ?? "No name")),
+            // child: Text(this._model.devices[index].id)),
           );
         });
   }
