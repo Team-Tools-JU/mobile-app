@@ -21,6 +21,7 @@ class Bluetooth implements BluetoothInterface {
 
   @override
   bool isReady() {
+    print(_bluetoothService.status);
     return (_bluetoothService.status == BleStatus.ready);
   }
 
