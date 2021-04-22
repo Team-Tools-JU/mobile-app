@@ -1,3 +1,6 @@
+import 'dart:js_util';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_app/src/app/views/start/start_view.dart';
 import 'package:firebase_core/firebase_core.dart';
