@@ -39,6 +39,7 @@ class _SteerButtonState extends State<SteerButton> {
             onPressed: (){
               setState(() {
                 print('Up arrow pressed');
+                // TODO: Send data to mower
               });
             },
           )
@@ -54,6 +55,7 @@ class _SteerButtonState extends State<SteerButton> {
                   onPressed: (){
                     setState(() {
                       print('Left arrow pressed');
+                      // TODO: Send data to mower
                     });
                   },
                 ),
@@ -66,6 +68,7 @@ class _SteerButtonState extends State<SteerButton> {
                   onPressed: (){
                     setState(() {
                       print('Right arrow pressed');
+                      // TODO: Send data to mower
                     });
                   },
                 )
@@ -80,6 +83,7 @@ class _SteerButtonState extends State<SteerButton> {
               onPressed: (){
                 setState(() {
                   print('Down arrow pressed');
+                  // TODO: Send data to mower
                 });
               },
             )
