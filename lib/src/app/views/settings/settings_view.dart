@@ -17,7 +17,19 @@ class SettingsView extends StatelessWidget {
           title: Text("Settings"),
         ),
         body: SwitchButton(model),
-
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem> [
+            BottomNavigationBarItem(icon: Icon(Icons.home),
+              label: 'Start',
+            ),
+            BottomNavigationBarItem(icon: Icon(Icons.settings),
+              label: 'Settings',
+            ),
+            BottomNavigationBarItem(icon: Icon(Icons.history),
+                label: 'History')
+          ],
+          selectedItemColor: Colors.amber[800],
+        ),
       ),
     );
   }
