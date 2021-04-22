@@ -30,7 +30,7 @@ class _SwitchButtonState extends State<SwitchButton> {
                 padding: EdgeInsets.all(19.0),
                 child: Text(
                   'Simulation mode',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  style: TextStyle(fontSize: 25),
                 ),
               ),
               Container(
@@ -59,8 +59,8 @@ class _SwitchButtonState extends State<SwitchButton> {
               Padding(
                 padding: EdgeInsets.all(19.0),
                 child: Text(
-                  'Manuell steering',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                  'Manual steering',
+                  style: TextStyle(fontSize: 25),
                 ),
               ),
               Container(
