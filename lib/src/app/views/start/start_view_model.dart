@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:stacked/stacked.dart';
 
-class StartViewModel extends ChangeNotifier {
+class StartViewModel extends IndexTrackingViewModel {
 
   String _bluetoothStatusText = 'default';
   bool _isConnected = false;
