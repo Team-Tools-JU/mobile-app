@@ -5,26 +5,14 @@ import 'package:stacked/stacked.dart';
 
 class SettingsViewModel extends ChangeNotifier {
 
-  String _bluetoothStatusText = 'default';
-  bool _isConnected = false;
+  bool _simulationMode = false;
+  bool _manualSteering = false;
 
-  String get bluetoothStatusText => _bluetoothStatusText;
+  bool get simulationMode => _simulationMode;
+  bool get manualSteering => _manualSteering;
 
-  void init() {
-    _bluetoothStatusText = 'initialised';
-    _isConnected = false;
-    notifyListeners();
-  }
 
-  String updateBluetoothStatus() {
-    if (_isConnected) {
-      _bluetoothStatusText = 'Connected!';
-    } else {
-      _bluetoothStatusText = 'Not connected!';
-    }
-    notifyListeners();
-    return _bluetoothStatusText;
-  }
+  void init() {}
 
   @override
   void dispose() {
