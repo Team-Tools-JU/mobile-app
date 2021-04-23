@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:mobile_app/src/app/views/history/history_view_model.dart';
 
 class MapWidget extends StatefulWidget{
+
   final HistoryViewModel _model;
   const MapWidget(this._model, {Key key}) : super(key: key);
+
   @override
   _MapWidgetState createState() => _MapWidgetState();
 }
+
 class _MapWidgetState extends State<MapWidget>{
   @override
   Widget build(BuildContext context) {
