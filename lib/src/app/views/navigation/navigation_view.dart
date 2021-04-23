@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mobile_app/src/app/views/history/history_view.dart';
 import 'package:mobile_app/src/app/views/navigation/navigation_view_model.dart';
 import 'package:mobile_app/src/app/views/settings/settings_view.dart';
@@ -17,7 +16,7 @@ class NavigationView extends StatelessWidget {
         appBar: AppBar(
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
-          title: Text("Mower-app"),
+          title: Text(viewTitle(model.currentIndex)),
           actions: <Widget> [
             IconButton(
               icon: const Icon(Icons.bluetooth),
@@ -57,6 +56,15 @@ class NavigationView extends StatelessWidget {
       ),
       viewModelBuilder: () => NavigationViewModel(),
     );
+  }
+  
+  String viewTitle(int index) {
+    
+      if (index == 0) return 'Mower-app';
+
+      if (index == 1) return 'Settings';
+
+      if (index == 2) return 'History';
   }
 
   Widget getViewForIndex(int index) {
