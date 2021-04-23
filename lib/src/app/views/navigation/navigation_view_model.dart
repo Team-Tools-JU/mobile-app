@@ -1,25 +1,23 @@
-import 'dart:async';
-
 import 'package:stacked/stacked.dart';
 
 class NavigationViewModel extends IndexTrackingViewModel {
 
-  String _bluetoothStatusText = 'default';
-  bool _isConnected = false;
+  String bluetoothStatusText = 'default';
+  bool isConnected;
 
-  String get bluetoothStatusText => _bluetoothStatusText;
+  String get _bluetoothStatusText => bluetoothStatusText;
 
   void init() {
-    _bluetoothStatusText = 'initialised';
-    _isConnected = false;
+    bluetoothStatusText = 'initialised';
+    isConnected = false;
     notifyListeners();
   }
 
   String updateBluetoothStatus() {
-    if (_isConnected) {
-      _bluetoothStatusText = 'Connected!';
+    if (isConnected) {
+      bluetoothStatusText = 'Connected!';
     } else {
-      _bluetoothStatusText = 'Not connected!';
+      bluetoothStatusText = 'Not connected!';
     }
     notifyListeners();
     return _bluetoothStatusText;

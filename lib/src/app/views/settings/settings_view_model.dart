@@ -1,18 +1,17 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
 
 class SettingsViewModel extends ChangeNotifier {
 
-  bool _simulationMode = false;
-  bool _manualSteering = false;
+  bool simulationMode;
+  bool manualSteering;
 
-  bool get simulationMode => _simulationMode;
-  bool get manualSteering => _manualSteering;
+  bool get _simulationMode => simulationMode;
+  bool get _manualSteering => manualSteering;
 
-
-  void init() {}
+  void init() {
+    simulationMode = false;
+    manualSteering = false;
+  }
 
   @override
   void dispose() {

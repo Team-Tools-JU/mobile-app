@@ -3,8 +3,8 @@ import 'package:mobile_app/src/app/views/history/history_view_model.dart';
 
 class MapWidget extends StatefulWidget{
 
-  final HistoryViewModel _model;
-  const MapWidget(this._model, {Key key}) : super(key: key);
+  final HistoryViewModel model;
+  const MapWidget(this.model, {Key key}) : super(key: key);
 
   @override
   _MapWidgetState createState() => _MapWidgetState();
