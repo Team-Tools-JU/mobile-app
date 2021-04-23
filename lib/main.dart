@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/src/app/views/navigation/navigation_view.dart';
+import 'package:mobile_app/src/app/views/settings/settings_view.dart';
+import 'package:mobile_app/src/app/views/settings/settings_view_model.dart';
 import 'package:mobile_app/src/app/views/start/start_view.dart';
+import 'package:mobile_app/src/app/views/steering/steering_view.dart';
+import 'package:mobile_app/src/app/views/history/history_view.dart';
 
 void main() {
   runApp(App());
@@ -27,7 +32,7 @@ class App extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: StartView(),
+      home: NavigationView(),
     );
   }
 }

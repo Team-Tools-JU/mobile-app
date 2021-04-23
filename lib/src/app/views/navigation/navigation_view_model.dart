@@ -1,9 +1,9 @@
 import 'package:stacked/stacked.dart';
 
-class StartViewModel extends IndexTrackingViewModel {
+class NavigationViewModel extends IndexTrackingViewModel {
 
   String bluetoothStatusText = 'default';
-  bool isConnected = false;
+  bool isConnected;
 
   String get _bluetoothStatusText => bluetoothStatusText;
 

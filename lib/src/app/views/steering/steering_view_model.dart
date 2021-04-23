@@ -1,6 +1,6 @@
-import 'package:stacked/stacked.dart';
+import 'package:flutter/material.dart';
 
-class StartViewModel extends IndexTrackingViewModel {
+class SteeringViewModel extends ChangeNotifier {
 
   String bluetoothStatusText = 'default';
   bool isConnected = false;
