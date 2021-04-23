@@ -9,37 +9,15 @@ import 'package:mobile_app/src/app/models/implementation/bluetooth_constants.dar
 import 'package:permission_handler/permission_handler.dart';
 
 class ConnectViewModel extends BaseViewModel {
+  FlutterBlue flutterBlue = FlutterBlue.instance;
   List<BluetoothDevice> devices = [];
   late BluetoothDevice selectedDevice;
   late BluetoothCharacteristic readChar;
   late BluetoothCharacteristic writeChar;
-
   bool isConnected = false;
-  // final Bluetooth _bluetooth = Bluetooth();
-  FlutterBlue flutterBlue = FlutterBlue.instance;
-
-  final Duration _scanDuration = Duration(seconds: 5);
 
   ConnectViewModel() {
-    //flutterBlue.state
-
-    flutterBlue.scanResults.listen((results) {
-      devices.clear();
-      for (ScanResult r in results) {
-        print('${r.device.name} found! rssi: ${r.rssi}');
-        devices.add(r.device);
-      }
-
-      notifyListeners();
-    });
     init();
-  }
-
-  // Currently not needed, might be removed later
-  void initConnectStatus() {
-    selectedDevice.state.listen((state) {
-      isConnected = (state == BluetoothDeviceState.connected);
-    });
   }
 
   Future<void> init() async {
@@ -52,38 +30,47 @@ class ConnectViewModel extends BaseViewModel {
     print(statuses[Permission.bluetooth]);
     print("both permissions given");
 
-    // bool result = await _bluetooth.requestEnable();
-    // if (result) {
-    // await Future.delayed(Duration(seconds: 1), () => {scan()});
-    // }
+    flutterBlue.scanResults.listen((results) {
+      devices.clear();
+      for (ScanResult r in results) {
+        print('${r.device.name} ${r.device.id} found! rssi: ${r.rssi}');
+        devices.add(r.device);
+      }
+      notifyListeners();
+    });
+
     scan();
+  }
+
+  // Currently not needed, might be removed later
+  void initConnectStatus() {
+    selectedDevice.state.listen((state) {
+      isConnected = (state == BluetoothDeviceState.connected);
+    });
   }
 
   Future<bool> scan() async {
     try {
-      if (await flutterBlue.isOn &
-          await Permission.locationWhenInUse.serviceStatus.isEnabled) {
-        devices.clear();
-        notifyListeners();
-        await flutterBlue.startScan(timeout: Duration(seconds: 4));
+      devices.clear();
+      notifyListeners();
+      await flutterBlue.startScan(timeout: Duration(seconds: 4));
+      print("scan complete");
+      return true;
+    } catch (e) {
+      print("bluetooth not ready or enabled, or location not enabled");
+      print(e);
+      //_showDialog();
+      //alert something
+      // TODO: "Notify view of failed scan"
 
-        print("scan complete");
-
-        return true;
-      } else {
-        print("bluetooth not ready or enabled, or location not enabled");
-        //_showDialog();
-        //alert something
-      }
-    } catch (e) {}
-    return false;
+      return false;
+    }
   }
 
   Future<void> connect(BluetoothDevice device) async {
     selectedDevice = device;
     try {
       await selectedDevice.connect(autoConnect: false);
-      // await Future.delayed(Duration(seconds: 1), () => {initConnectStatus()});
       print('connected to address: ${device.id} name: ${device.name}');
 
       List<BluetoothService> services = await device.discoverServices();
