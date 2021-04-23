@@ -103,12 +103,12 @@ packages:
     source: hosted
     version: "1.0.0"
   get_it:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: get_it
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.0"
+    version: "6.1.1"
   matcher:
     dependency: transitive
     description:

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue/flutter_blue.dart';
+import 'package:mobile_app/src/app/models/implementation/bluetooth_v2.dart';
 import 'package:mobile_app/src/app/views/connect/connect_view.dart';
 import 'package:mobile_app/src/app/views/start/start_view.dart';
+import 'package:get_it/get_it.dart';
 
 void main() {
+  GetIt.I.registerSingleton<Bluetooth>(Bluetooth());
   runApp(App());
 }
 
