@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/src/app/views/History/history_view_model.dart';
-import '../history_view_model.dart';
+import 'package:mobile_app/src/app/views/history/history_view_model.dart';
 
 class MapWidget extends StatefulWidget{
   final HistoryViewModel _model;
@@ -25,7 +24,6 @@ class _MapWidgetState extends State<MapWidget>{
                   .headline4
                   .copyWith(color: Colors.white))
       ),
-
     );
   }
 }
