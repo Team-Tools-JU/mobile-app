@@ -16,7 +16,9 @@ class Devices extends StatelessWidget {
             child: TextButton(
                 onPressed: () async =>
                     this._model.connect(this._model.devices[index]),
-                child: Text(this._model.devices[index].name ?? "No name")),
+                child: Text((this._model.devices[index].name != "")
+                    ? this._model.devices[index].name
+                    : "No name")),
             // child: Text(this._model.devices[index].id)),
           );
         });
