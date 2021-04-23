@@ -15,6 +15,17 @@ class SteeringView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title: Text("Steering"),
+          actions: <Widget> [
+            IconButton(
+              icon: const Icon(Icons.bluetooth),
+              color: Colors.black,
+              tooltip: 'Bluetooth status',
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(model.updateBluetoothStatus())));
+              },
+            )
+          ],
         ),
         body: Center(
           child: SteerButton(model),

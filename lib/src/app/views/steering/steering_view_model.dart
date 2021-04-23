@@ -3,17 +3,28 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class SteeringViewModel extends BaseViewModel {
+class SteeringViewModel extends ChangeNotifier {
 
-  bool _simulationMode = false;
-  bool _manualSteering = false;
+  String _bluetoothStatusText = 'default';
+  bool _isConnected = false;
 
-  bool get simulationMode => _simulationMode;
+  String get bluetoothStatusText => _bluetoothStatusText;
 
-  bool get manualSteering => _manualSteering;
+  void init() {
+    _bluetoothStatusText = 'initialised';
+    _isConnected = false;
+    notifyListeners();
+  }
 
-  void init() {}
-
+  String updateBluetoothStatus() {
+    if (_isConnected) {
+      _bluetoothStatusText = 'Connected!';
+    } else {
+      _bluetoothStatusText = 'Not connected!';
+    }
+    notifyListeners();
+    return _bluetoothStatusText;
+  }
 
   @override
   void dispose() {
