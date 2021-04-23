@@ -5,9 +5,9 @@ import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 
 class SwitchButton extends StatefulWidget {
 
-  final SettingsViewModel _model;
+  final SettingsViewModel model;
 
-  const SwitchButton(this._model, {Key key}) : super(key: key);
+  const SwitchButton(this.model, {Key key}) : super(key: key);
 
   @override
   _SwitchButtonState createState() => _SwitchButtonState();

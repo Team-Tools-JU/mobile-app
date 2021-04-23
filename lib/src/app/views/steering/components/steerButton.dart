@@ -6,9 +6,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SteerButton extends StatefulWidget {
 
-  final SteeringViewModel _model;
+  final SteeringViewModel model;
 
-  const SteerButton(this._model, {Key key}) : super(key: key);
+  const SteerButton(this.model, {Key key}) : super(key: key);
 
   @override
   _SteerButtonState createState() => _SteerButtonState();

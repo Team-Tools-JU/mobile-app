@@ -1,26 +1,23 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
 
 class SteeringViewModel extends ChangeNotifier {
 
-  String _bluetoothStatusText = 'default';
-  bool _isConnected = false;
+  String bluetoothStatusText = 'default';
+  bool isConnected = false;
 
-  String get bluetoothStatusText => _bluetoothStatusText;
+  String get _bluetoothStatusText => bluetoothStatusText;
 
   void init() {
-    _bluetoothStatusText = 'initialised';
-    _isConnected = false;
+    bluetoothStatusText = 'initialised';
+    isConnected = false;
     notifyListeners();
   }
 
   String updateBluetoothStatus() {
-    if (_isConnected) {
-      _bluetoothStatusText = 'Connected!';
+    if (isConnected) {
+      bluetoothStatusText = 'Connected!';
     } else {
-      _bluetoothStatusText = 'Not connected!';
+      bluetoothStatusText = 'Not connected!';
     }
     notifyListeners();
     return _bluetoothStatusText;
