@@ -34,7 +34,7 @@ class NavigationView extends StatelessWidget {
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
+              icon: Icon(Icons.home),
               label: 'Start',
             ),
             BottomNavigationBarItem(
