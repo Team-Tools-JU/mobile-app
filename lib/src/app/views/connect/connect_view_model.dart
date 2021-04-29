@@ -34,7 +34,7 @@ class ConnectViewModel extends BaseViewModel {
 
     bool permissionsGiven = await requestPermissions();
     if (permissionsGiven) {
-      await enableServices();
+      await openServiceSettings();
       if (await _bluetooth.flutterBlue.isOn &&
           await _location.serviceEnabled()) {
         Future.delayed(Duration(seconds: 2), () => scan());
