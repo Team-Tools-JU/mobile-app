@@ -17,14 +17,11 @@ class SteerButton extends StatefulWidget {
 
 class _SteerButtonState extends State<SteerButton> {
 
-  double _signalStrength = 0.0;
+  double _signalStrength = 1.0;
 
-  void _changeValue(double value) {
-    setState(() {
-      print(_signalStrength.toString());
-      _signalStrength = value;
-    });
-  }
+  static const double greenBar = 0.75;
+  static const double yellowBar = 0.50;
+  static const double redBar = 0.25;
 
 
   @override
@@ -38,15 +35,16 @@ class _SteerButtonState extends State<SteerButton> {
             angle: -45 * pi / 180,
             origin: const Offset(-50, 0),
             child: SignalStrengthIndicator.sector(
+              // TODO: Receive data from mower
               value: _signalStrength,
               size: 150,
               spacing: 0.5,
               barCount: 3,
               // ignore: prefer_const_literals_to_create_immutables
               levels: <num, Color>{
-                0.25: Colors.red,
-                0.50: Colors.yellow,
-                0.75: Colors.green,
+                redBar: Colors.red,
+                yellowBar: Colors.yellow,
+                greenBar: Colors.green,
               },
               inactiveColor: Colors.blue[100],
             ),
@@ -115,10 +113,6 @@ class _SteerButtonState extends State<SteerButton> {
                 });
               },
             )
-        ),
-        Slider (
-          value: _signalStrength,
-          onChanged: _changeValue,
         ),
       ],
     );
