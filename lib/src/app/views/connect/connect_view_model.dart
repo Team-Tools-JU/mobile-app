@@ -5,12 +5,14 @@ import 'package:mobile_app/src/app/models/implementation/android_service.dart';
 import 'package:mobile_app/src/app/models/implementation/bluetooth_v2.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:location/location.dart' as L;
 import 'package:mobile_app/src/app/models/implementation/bluetooth_constants.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:android_intent/android_intent.dart';
 
 class ConnectViewModel extends BaseViewModel {
   Bluetooth _bluetooth = GetIt.I<Bluetooth>();
+  L.Location _location = new L.Location();
+
   AndroidService _android = GetIt.I<AndroidService>();
   List<BluetoothDevice> devices = [];
 
@@ -33,7 +35,8 @@ class ConnectViewModel extends BaseViewModel {
     bool permissionsGiven = await requestPermissions();
     if (permissionsGiven) {
       await enableServices();
-      if (await _bluetooth.flutterBlue.isOn) {
+      if (await _bluetooth.flutterBlue.isOn &&
+          await _location.serviceEnabled()) {
         Future.delayed(Duration(seconds: 2), () => scan());
       }
     }
@@ -55,9 +58,13 @@ class ConnectViewModel extends BaseViewModel {
     return locationPermitted && bluetoothPermitted;
   }
 
-  Future<void> enableServices() async {
-    await _android.openLocationSetting();
-    await _android.openBluetoothSetting();
+  Future<void> openServiceSettings() async {
+    if (!await _bluetooth.flutterBlue.isOn) {
+      await _android.openLocationSetting();
+    }
+    if (!await _location.serviceEnabled()) {
+      await _android.openBluetoothSetting();
+    }
   }
 
   // Currently not needed, might be removed later
