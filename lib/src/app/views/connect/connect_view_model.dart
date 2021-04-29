@@ -1,13 +1,17 @@
 import 'dart:async';
+import 'dart:io' show Platform;
 import 'package:get_it/get_it.dart';
+import 'package:mobile_app/src/app/models/implementation/android_service.dart';
 import 'package:mobile_app/src/app/models/implementation/bluetooth_v2.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:mobile_app/src/app/models/implementation/bluetooth_constants.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:android_intent/android_intent.dart';
 
 class ConnectViewModel extends BaseViewModel {
   Bluetooth _bluetooth = GetIt.I<Bluetooth>();
+  AndroidService _android = GetIt.I<AndroidService>();
   List<BluetoothDevice> devices = [];
 
   bool isConnected = false;
@@ -17,15 +21,6 @@ class ConnectViewModel extends BaseViewModel {
   }
 
   Future<void> init() async {
-    Map<Permission, PermissionStatus> statuses = await [
-      Permission.bluetooth,
-      Permission.location,
-    ].request();
-
-    print(statuses[Permission.location]);
-    print(statuses[Permission.bluetooth]);
-    print("both permissions given");
-
     _bluetooth.flutterBlue.scanResults.listen((results) {
       devices.clear();
       for (ScanResult r in results) {
@@ -35,7 +30,34 @@ class ConnectViewModel extends BaseViewModel {
       notifyListeners();
     });
 
-    scan();
+    bool permissionsGiven = await requestPermissions();
+    if (permissionsGiven) {
+      await enableServices();
+      if (await _bluetooth.flutterBlue.isOn) {
+        Future.delayed(Duration(seconds: 2), () => scan());
+      }
+    }
+  }
+
+  Future<bool> requestPermissions() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.bluetooth,
+      Permission.location,
+    ].request();
+
+    print(statuses[Permission.location]);
+    print(statuses[Permission.bluetooth]);
+    print("both permissions given");
+    bool locationPermitted = statuses[Permission.location]?.isGranted ?? false;
+    bool bluetoothPermitted =
+        statuses[Permission.bluetooth]?.isGranted ?? false;
+
+    return locationPermitted && bluetoothPermitted;
+  }
+
+  Future<void> enableServices() async {
+    await _android.openLocationSetting();
+    await _android.openBluetoothSetting();
   }
 
   // Currently not needed, might be removed later
