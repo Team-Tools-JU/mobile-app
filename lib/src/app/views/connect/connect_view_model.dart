@@ -24,21 +24,31 @@ class ConnectViewModel extends BaseViewModel {
 
   Future<void> init() async {
     _bluetooth.flutterBlue.scanResults.listen((results) {
-      devices.clear();
-      for (ScanResult r in results) {
-        print('${r.device.name} ${r.device.id} found! rssi: ${r.rssi}');
-        devices.add(r.device);
-      }
-      notifyListeners();
+      onScanResults(results);
+    });
+
+    _bluetooth.flutterBlue.state.listen((state) {
+      onBluetoothStateChanged(state);
     });
 
     bool permissionsGiven = await requestPermissions();
     if (permissionsGiven) {
       await openServiceSettings();
-      if (await _bluetooth.flutterBlue.isOn &&
-          await _location.serviceEnabled()) {
-        Future.delayed(Duration(seconds: 2), () => scan());
-      }
+    }
+  }
+
+  void onScanResults(List<ScanResult> results) {
+    devices.clear();
+    for (ScanResult r in results) {
+      print('${r.device.name} ${r.device.id} found! rssi: ${r.rssi}');
+      devices.add(r.device);
+    }
+    notifyListeners();
+  }
+
+  void onBluetoothStateChanged(state) async {
+    if (state == BluetoothState.on && await _location.requestService()) {
+      scan();
     }
   }
 
@@ -60,11 +70,12 @@ class ConnectViewModel extends BaseViewModel {
 
   Future<void> openServiceSettings() async {
     if (!await _bluetooth.flutterBlue.isOn) {
-      await _android.openLocationSetting();
-    }
-    if (!await _location.serviceEnabled()) {
+      print("openServiceSettings1");
       await _android.openBluetoothSetting();
     }
+    // if (!await _location.serviceEnabled()) {
+    //   await _android.openLocationSetting();
+    // }
   }
 
   // Currently not needed, might be removed later
