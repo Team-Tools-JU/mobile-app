@@ -19,12 +19,12 @@ class NavigationView extends StatelessWidget {
           title: Text(viewTitle(model.currentIndex)),
           actions: <Widget> [
             IconButton(
-              icon: const Icon(Icons.bluetooth),
+              icon: Icon(model.updateBluetoothSymbolText()),
               color: Colors.black,
               tooltip: 'Bluetooth status',
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(model.updateBluetoothStatus())));
+                    SnackBar(content: Text(model.updateBluetoothStatusText())));
               },
             )
           ],
