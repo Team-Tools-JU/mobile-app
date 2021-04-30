@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/src/app/views/settings/settings_view_model.dart';
 import 'package:mobile_app/src/app/views/settings/components/switchButton.dart';
-
 import 'package:stacked/stacked.dart';
 
 class SettingsView extends StatelessWidget {

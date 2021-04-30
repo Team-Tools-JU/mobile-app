@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../settings_view_model.dart';
-import 'package:lite_rolling_switch/lite_rolling_switch.dart';
+// import 'package:lite_rolling_switch/lite_rolling_switch.dart';
+import 'lite_rolling_switch.dart';
 
 class SwitchButton extends StatefulWidget {
   final SettingsViewModel model;
