@@ -6,6 +6,8 @@ import 'package:mobile_app/src/app/views/start/start_view.dart';
 
 import 'package:stacked/stacked.dart';
 
+import '../start/start_view.dart';
+
 class NavigationView extends StatelessWidget {
   const NavigationView({Key? key}) : super(key: key);
 
@@ -59,11 +61,16 @@ class NavigationView extends StatelessWidget {
   }
 
   String viewTitle(int index) {
-    if (index == 0) return 'Mower-app';
-
-    if (index == 1) return 'Settings';
-
-    if (index == 2) return 'History';
+    switch (index) {
+      case 0:
+        return 'Mower-app';
+      case 1:
+        return 'Settings';
+      case 2:
+        return 'History';
+      default:
+        return '';
+    }
   }
 
   Widget getViewForIndex(int index) {
@@ -74,6 +81,8 @@ class NavigationView extends StatelessWidget {
         return SettingsView();
       case 2:
         return HistoryView();
+      default:
+        return StartView();
     }
   }
 }
