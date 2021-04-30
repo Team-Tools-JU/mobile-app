@@ -3,9 +3,8 @@ import 'package:mobile_app/src/app/views/steering/components/steerButton.dart';
 import 'package:mobile_app/src/app/views/steering/steering_view_model.dart';
 import 'package:stacked/stacked.dart';
 
-
 class SteeringView extends StatelessWidget {
-  const SteeringView({Key key}) : super(key: key);
+  const SteeringView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,7 @@ class SteeringView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title: Text("Steering"),
-          actions: <Widget> [
+          actions: <Widget>[
             IconButton(
               icon: Icon(model.updateBluetoothSymbolText()),
               color: Colors.black,
