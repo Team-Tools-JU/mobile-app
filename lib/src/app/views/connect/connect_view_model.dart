@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io' show Platform;
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobile_app/src/app/models/implementation/android_service.dart';
 import 'package:mobile_app/src/app/models/implementation/bluetooth_v2.dart';
@@ -17,6 +18,8 @@ class ConnectViewModel extends BaseViewModel {
   List<BluetoothDevice> devices = [];
 
   bool isConnected = false;
+  StreamController<bool> servicesEnabled = StreamController<bool>.broadcast();
+  StreamController<bool> permissionsGiven = StreamController<bool>.broadcast();
 
   ConnectViewModel() {
     init();
@@ -27,14 +30,17 @@ class ConnectViewModel extends BaseViewModel {
       onScanResults(results);
     });
 
-    _bluetooth.flutterBlue.state.listen((state) {
-      onBluetoothStateChanged(state);
+    // _bluetooth.flutterBlue.state.listen((state) {
+    //   if (state) ;
+    // });
+
+    permissionsGiven.stream.listen((permitted) {
+      if (permitted) {
+        onPermissionsGiven();
+      } else {}
     });
 
-    bool permissionsGiven = await requestPermissions();
-    if (permissionsGiven) {
-      await openServiceSettings();
-    }
+    await requestPermissions();
   }
 
   void onScanResults(List<ScanResult> results) {
@@ -46,13 +52,22 @@ class ConnectViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void onBluetoothStateChanged(state) async {
-    if (state == BluetoothState.on && await _location.requestService()) {
-      scan();
+  Future<void> onPermissionsGiven() async {
+    bool bluetoothOn = await _bluetooth.flutterBlue.isOn;
+    if (!bluetoothOn) {
+      _android.openBluetoothSetting();
+    }
+    bool locationOn = await _location.requestService();
+    print(bluetoothOn && locationOn);
+    servicesEnabled.add(bluetoothOn && locationOn);
+
+    if (bluetoothOn && locationOn) {
+      // scan();
+      print("should be scanning now");
     }
   }
 
-  Future<bool> requestPermissions() async {
+  Future<void> requestPermissions() async {
     Map<Permission, PermissionStatus> statuses = await [
       Permission.bluetooth,
       Permission.location,
@@ -65,17 +80,7 @@ class ConnectViewModel extends BaseViewModel {
     bool bluetoothPermitted =
         statuses[Permission.bluetooth]?.isGranted ?? false;
 
-    return locationPermitted && bluetoothPermitted;
-  }
-
-  Future<void> openServiceSettings() async {
-    if (!await _bluetooth.flutterBlue.isOn) {
-      print("openServiceSettings1");
-      await _android.openBluetoothSetting();
-    }
-    // if (!await _location.serviceEnabled()) {
-    //   await _android.openLocationSetting();
-    // }
+    permissionsGiven.add(locationPermitted && bluetoothPermitted);
   }
 
   // Currently not needed, might be removed later
