@@ -6,8 +6,10 @@ import 'package:mobile_app/src/app/views/start/start_view.dart';
 
 import 'package:stacked/stacked.dart';
 
+import '../start/start_view.dart';
+
 class NavigationView extends StatelessWidget {
-  const NavigationView({Key key}) : super(key: key);
+  const NavigationView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class NavigationView extends StatelessWidget {
           // Here we take the value from the MyHomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Text(viewTitle(model.currentIndex)),
-          actions: <Widget> [
+          actions: <Widget>[
             IconButton(
               icon: Icon(model.updateBluetoothSymbolText()),
               color: Colors.black,
@@ -57,25 +59,30 @@ class NavigationView extends StatelessWidget {
       viewModelBuilder: () => NavigationViewModel(),
     );
   }
-  
+
   String viewTitle(int index) {
-    
-      if (index == 0) return 'Mower-app';
-
-      if (index == 1) return 'Settings';
-
-      if (index == 2) return 'History';
+    switch (index) {
+      case 0:
+        return 'Mower-app';
+      case 1:
+        return 'Settings';
+      case 2:
+        return 'History';
+      default:
+        return '';
+    }
   }
 
   Widget getViewForIndex(int index) {
-
-    switch(index) {
+    switch (index) {
       case 0:
         return StartView();
       case 1:
         return SettingsView();
       case 2:
         return HistoryView();
+      default:
+        return StartView();
     }
   }
 }

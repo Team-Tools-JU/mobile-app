@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 import '../settings_view_model.dart';
-import 'package:lite_rolling_switch/lite_rolling_switch.dart';
-
+import 'lite_rolling_switch.dart';
 
 class SwitchButton extends StatefulWidget {
-
   final SettingsViewModel model;
 
-  const SwitchButton(this.model, {Key key}) : super(key: key);
+  const SwitchButton(this.model, {Key? key}) : super(key: key);
 
   @override
   _SwitchButtonState createState() => _SwitchButtonState();
 }
 
 class _SwitchButtonState extends State<SwitchButton> {
-
   @override
   Widget build(BuildContext context) {
-
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: Column(
@@ -88,9 +84,3 @@ class _SwitchButtonState extends State<SwitchButton> {
     );
   }
 }
-
-
-
-
-
-
