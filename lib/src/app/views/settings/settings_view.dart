@@ -5,7 +5,7 @@ import 'package:mobile_app/src/app/views/settings/components/switchButton.dart';
 import 'package:stacked/stacked.dart';
 
 class SettingsView extends StatelessWidget {
-  const SettingsView({Key key}) : super(key: key);
+  const SettingsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
