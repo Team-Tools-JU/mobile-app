@@ -14,8 +14,6 @@ class Bluetooth {
 
   Future<void> connect() async {
     await selectedDevice.connect(autoConnect: false);
-    print(
-        'connected to address: ${selectedDevice.id} name: ${selectedDevice.name}');
 
     List<BluetoothService> services = await selectedDevice.discoverServices();
     BluetoothService service = services

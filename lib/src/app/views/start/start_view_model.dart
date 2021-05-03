@@ -6,7 +6,6 @@ import 'package:mobile_app/src/app/models/implementation/android_service.dart';
 import 'package:mobile_app/src/app/models/implementation/bluetooth_v2.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:location/location.dart' as L;
-import 'package:mobile_app/src/app/models/implementation/bluetooth_constants.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class StartViewModel extends IndexTrackingViewModel {
@@ -24,7 +23,7 @@ class StartViewModel extends IndexTrackingViewModel {
 
   String get _bluetoothStatusText => bluetoothStatusText;
 
-  void init() {
+  void init() async {
     bluetoothStatusText = 'initialised';
     isConnected = false;
     _bluetooth.flutterBlue.scanResults.listen((results) {
@@ -35,7 +34,7 @@ class StartViewModel extends IndexTrackingViewModel {
     permissionsGiven.stream.listen((permitted) {
       if (permitted) {
         onPermissionsGiven();
-      } else {}
+      }
     });
 
     await requestPermissions();
@@ -60,8 +59,7 @@ class StartViewModel extends IndexTrackingViewModel {
     servicesEnabled.add(bluetoothOn && locationOn);
 
     if (bluetoothOn && locationOn) {
-      // scan();
-      print("should be scanning now");
+      scan();
     }
   }
 
@@ -71,9 +69,6 @@ class StartViewModel extends IndexTrackingViewModel {
       Permission.location,
     ].request();
 
-    print(statuses[Permission.location]);
-    print(statuses[Permission.bluetooth]);
-    print("both permissions given");
     bool locationPermitted = statuses[Permission.location]?.isGranted ?? false;
     bool bluetoothPermitted =
         statuses[Permission.bluetooth]?.isGranted ?? false;
@@ -84,17 +79,14 @@ class StartViewModel extends IndexTrackingViewModel {
   Future<bool> scan() async {
     try {
       devices.clear();
+      await _bluetooth.scan();
       notifyListeners();
-      await _bluetooth.flutterBlue.startScan(timeout: Duration(seconds: 4));
       print("scan complete");
       return true;
     } catch (e) {
       print("bluetooth not ready or enabled, or location not enabled");
       print(e);
-      //_showDialog();
-      //alert something
       // TODO: "Notify view of failed scan"
-
       return false;
     }
   }
@@ -102,29 +94,8 @@ class StartViewModel extends IndexTrackingViewModel {
   Future<void> connect(BluetoothDevice device) async {
     _bluetooth.selectedDevice = device;
     try {
-      await _bluetooth.selectedDevice.connect(autoConnect: false);
+      await _bluetooth.connect();
       print('connected to address: ${device.id} name: ${device.name}');
-
-      List<BluetoothService> services =
-          await _bluetooth.selectedDevice.discoverServices();
-      BluetoothService service = services
-          .where((service) => (service.uuid == Guid(SERVICE_UUID)))
-          .toList()[0];
-
-      // Test code for reading and writing that will be moved later
-      for (BluetoothCharacteristic c in service.characteristics) {
-        if (c.uuid == Guid(READ_CHAR_UUID)) {
-          _bluetooth.readChar = c;
-          List<int> value = await c.read();
-          print("read: $value from char: $READ_CHAR_UUID");
-        }
-        if (c.uuid == Guid(WRITE_CHAR_UUID)) {
-          _bluetooth.writeChar = c;
-          List<int> value = [65];
-          await c.write(value);
-          print("wrote: $value to char: $WRITE_CHAR_UUID");
-        }
-      }
 
       //TODO: change view after successful connection
     } catch (e) {
