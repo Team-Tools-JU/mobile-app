@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mobile_app/src/app/views/connect/connect_view.dart';
 import 'package:stacked/stacked.dart';
 import 'dart:async';
 import 'dart:io' show Platform;
@@ -23,6 +26,10 @@ class StartViewModel extends IndexTrackingViewModel {
 
   String get _bluetoothStatusText => bluetoothStatusText;
 
+  StartViewModel() {
+    init();
+  }
+
   void init() async {
     bluetoothStatusText = 'initialised';
     isConnected = false;
@@ -34,6 +41,8 @@ class StartViewModel extends IndexTrackingViewModel {
     permissionsGiven.stream.listen((permitted) {
       if (permitted) {
         onPermissionsGiven();
+      } else {
+        showRequestDialog();
       }
     });
 
@@ -49,17 +58,41 @@ class StartViewModel extends IndexTrackingViewModel {
     notifyListeners();
   }
 
+  void showRequestDialog() {
+    print("wallahuakbar");
+    Get.dialog(AlertDialog(
+        title: new Text("Required"),
+        content: new Text(
+            "Bluetooth and location services are required for the app to function."),
+        actions: <Widget>[
+          TextButton(
+            child: Text('Try again'),
+            onPressed: () {
+              Get.back();
+              requestPermissions();
+            },
+          )
+        ]));
+  }
+
   Future<void> onPermissionsGiven() async {
     bool bluetoothOn = await _bluetooth.flutterBlue.isOn;
     if (!bluetoothOn) {
       _android.openBluetoothSetting();
     }
+
     bool locationOn = await _location.requestService();
     print(bluetoothOn && locationOn);
     servicesEnabled.add(bluetoothOn && locationOn);
 
     if (bluetoothOn && locationOn) {
-      scan();
+      _bluetooth.flutterBlue.state.listen((state) {
+        if (state == BluetoothState.turningOff) {
+          showRequestDialog();
+        }
+      });
+    } else {
+      showRequestDialog();
     }
   }
 
