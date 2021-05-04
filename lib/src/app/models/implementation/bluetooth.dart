@@ -1,17 +1,29 @@
 import 'dart:async';
-
 import 'package:flutter_blue/flutter_blue.dart';
-
+import 'package:mobile_app/src/app/models/interfaces/bluetooth.dart';
 import 'bluetooth_constants.dart';
 
-class Bluetooth {
+class Bluetooth implements BluetoothInterface {
+  @override
+  StreamController<bool> isConnected = StreamController<bool>.broadcast();
+
+  @override
   FlutterBlue flutterBlue = FlutterBlue.instance;
+
+  @override
   late BluetoothDevice selectedDevice;
+
+  @override
   late BluetoothCharacteristic readChar;
+
+  @override
   late BluetoothCharacteristic writeChar;
+
+  @override
   StreamController<List<int>> incomingMessages =
       StreamController<List<int>>.broadcast();
 
+  @override
   Future<void> connect() async {
     await selectedDevice.connect(autoConnect: false);
 
@@ -37,15 +49,24 @@ class Bluetooth {
     }
   }
 
-  Future<void> scan() async {
-    await flutterBlue.startScan(timeout: Duration(seconds: 4));
+  @override
+  Future<List<BluetoothDevice>> scan(Duration duration) async {
+    List<BluetoothDevice> foundDevices = [];
+    flutterBlue.scanResults.listen((results) {
+      results.map((result) => foundDevices.add(result.device));
+    });
+    await flutterBlue.startScan(timeout: duration);
+
     print("scan complete");
+    return foundDevices;
   }
 
+  @override
   Future<void> write(List<int> message) async {
     await writeChar.write(message);
   }
 
+  @override
   void listen() async {
     while (true) {
       Future.delayed(Duration(seconds: 1),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobile_app/src/app/models/implementation/bluetooth_constants.dart';
+import 'package:mobile_app/src/app/views/settings/settings_view.dart';
 import 'package:stacked/stacked.dart';
 import 'dart:async';
 import 'dart:io' show Platform;
@@ -30,10 +32,6 @@ class StartViewModel extends IndexTrackingViewModel {
   void init() async {
     bluetoothStatusText = 'initialised';
     isConnected = false;
-    _bluetooth.flutterBlue.scanResults.listen((results) {
-      onScanResults(results);
-    });
-    notifyListeners();
 
     permissionsGiven.stream.listen((permitted) {
       if (permitted) {
@@ -46,12 +44,12 @@ class StartViewModel extends IndexTrackingViewModel {
     await requestPermissions();
   }
 
-  void onScanResults(List<ScanResult> results) {
-    for (ScanResult r in results) {
-      if (r.device.id.id == "Insert arduino address here") {
-        connect(r.device);
+  void onScanResults(List<BluetoothDevice> devices) {
+    for (BluetoothDevice device in devices) {
+      if (device.id.id == DEVICE_ID) {
+        connect(device);
       }
-      print('${r.device.name} ${r.device.id} found! rssi: ${r.rssi}');
+      print('${device.name} ${device.id} found!');
     }
     notifyListeners();
   }
@@ -108,9 +106,8 @@ class StartViewModel extends IndexTrackingViewModel {
 
   Future<bool> scan() async {
     try {
-      await _bluetooth.scan();
+      onScanResults(await _bluetooth.scan(Duration(seconds: 4)));
       notifyListeners();
-      print("scan complete");
       return true;
     } catch (e) {
       print("bluetooth not ready or enabled, or location not enabled");
@@ -124,9 +121,9 @@ class StartViewModel extends IndexTrackingViewModel {
     _bluetooth.selectedDevice = device;
     try {
       await _bluetooth.connect();
+      _bluetooth.isConnected.add(true);
       print('connected to address: ${device.id} name: ${device.name}');
-
-      //TODO: change view after successful connection
+      Get.to(SettingsView());
     } catch (e) {
       print(e);
       print('connection failed to address: ${device.id} name: ${device.name}');
