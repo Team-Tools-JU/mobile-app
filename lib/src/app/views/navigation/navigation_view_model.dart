@@ -1,4 +1,3 @@
-import 'package:flutter_blue/flutter_blue.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobile_app/src/app/models/implementation/bluetooth.dart';
 import 'package:stacked/stacked.dart';
@@ -10,18 +9,9 @@ class NavigationViewModel extends IndexTrackingViewModel {
   IconData iconData = Icons.bluetooth;
   Bluetooth _bluetooth = GetIt.I<Bluetooth>();
 
-  NavigationViewModel() {
-    _bluetooth.selectedDevice.state.listen((state) {
-      switch (state) {
-        case BluetoothDeviceState.connected:
-          isConnected = true;
-          break;
-        case BluetoothDeviceState.disconnected:
-          isConnected = false;
-          break;
-        default:
-          break;
-      }
+  void onBluetoothConnect() {
+    _bluetooth.isConnected.stream.listen((state) {
+      isConnected = state;
     });
   }
 
