@@ -52,12 +52,16 @@ class Bluetooth implements BluetoothInterface {
   @override
   Future<List<BluetoothDevice>> scan(Duration duration) async {
     List<BluetoothDevice> foundDevices = [];
+
     flutterBlue.scanResults.listen((results) {
-      results.map((result) => foundDevices.add(result.device));
+      foundDevices.clear();
+      results.forEach((result) {
+        foundDevices.add(result.device);
+      });
     });
+
     await flutterBlue.startScan(timeout: duration);
 
-    print("scan complete");
     return foundDevices;
   }
 

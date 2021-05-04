@@ -86,6 +86,7 @@ class StartViewModel extends IndexTrackingViewModel {
           showRequestDialog();
         }
       });
+      scan();
     } else {
       showRequestDialog();
     }
@@ -106,7 +107,9 @@ class StartViewModel extends IndexTrackingViewModel {
 
   Future<bool> scan() async {
     try {
-      onScanResults(await _bluetooth.scan(Duration(seconds: 4)));
+      List<BluetoothDevice> scanResults =
+          await _bluetooth.scan(Duration(seconds: 4));
+      onScanResults(scanResults);
       notifyListeners();
       return true;
     } catch (e) {
