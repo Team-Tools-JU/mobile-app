@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile_app/src/app/views/connect/connect_view.dart';
+import 'package:mobile_app/src/app/views/steering/steering_view.dart';
 import 'package:stacked/stacked.dart';
 import 'dart:async';
 import 'dart:io' show Platform;
@@ -14,9 +14,7 @@ import 'package:permission_handler/permission_handler.dart';
 class StartViewModel extends IndexTrackingViewModel {
   Bluetooth _bluetooth = GetIt.I<Bluetooth>();
   L.Location _location = new L.Location();
-
   AndroidService _android = GetIt.I<AndroidService>();
-  List<BluetoothDevice> devices = [];
 
   StreamController<bool> servicesEnabled = StreamController<bool>.broadcast();
   StreamController<bool> permissionsGiven = StreamController<bool>.broadcast();
@@ -50,16 +48,16 @@ class StartViewModel extends IndexTrackingViewModel {
   }
 
   void onScanResults(List<ScanResult> results) {
-    devices.clear();
     for (ScanResult r in results) {
+      if (r.device.id.id == "Insert arduino address here") {
+        connect(r.device);
+      }
       print('${r.device.name} ${r.device.id} found! rssi: ${r.rssi}');
-      devices.add(r.device);
     }
     notifyListeners();
   }
 
   void showRequestDialog() {
-    print("wallahuakbar");
     Get.dialog(AlertDialog(
         title: new Text("Required"),
         content: new Text(
@@ -111,7 +109,6 @@ class StartViewModel extends IndexTrackingViewModel {
 
   Future<bool> scan() async {
     try {
-      devices.clear();
       await _bluetooth.scan();
       notifyListeners();
       print("scan complete");
