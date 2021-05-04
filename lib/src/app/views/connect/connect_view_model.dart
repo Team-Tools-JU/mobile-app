@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:io' show Platform;
-import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobile_app/src/app/models/implementation/android_service.dart';
-import 'package:mobile_app/src/app/models/implementation/bluetooth_v2.dart';
+import 'package:mobile_app/src/app/models/implementation/bluetooth.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:location/location.dart' as L;
@@ -31,7 +30,7 @@ class ConnectViewModel extends BaseViewModel {
     });
 
     // _bluetooth.flutterBlue.state.listen((state) {
-    //   if (state) ;
+    //   if (state == BluetoothState.off) {}
     // });
 
     permissionsGiven.stream.listen((permitted) {
@@ -64,6 +63,8 @@ class ConnectViewModel extends BaseViewModel {
     if (bluetoothOn && locationOn) {
       // scan();
       print("should be scanning now");
+    } else {
+      requestPermissions();
     }
   }
 

@@ -1,26 +1,21 @@
-import 'dart:typed_data';
+import 'dart:async';
+
+import 'package:flutter_blue/flutter_blue.dart';
 
 abstract class BluetoothInterface {
-  late BTDevice selectedDevice;
+  FlutterBlue flutterBlue = FlutterBlue.instance;
+  late BluetoothDevice selectedDevice;
+  late BluetoothCharacteristic readChar;
+  late BluetoothCharacteristic writeChar;
+  StreamController<bool> isConnected = StreamController<bool>.broadcast();
+  StreamController<List<int>> incomingMessages =
+      StreamController<List<int>>.broadcast();
 
-  bool isReady();
+  Future<List<BluetoothDevice>> scan(Duration duration);
 
-  bool get isConnected => false;
+  Future<void> connect();
 
-  Future<List<BTDevice>> scan(Duration duration);
+  Future<dynamic> write(List<int> data);
 
-  Future<void> connect(BTDevice device);
-
-  Future<void> disconnect();
-
-  Future<dynamic> send(Uint8List data);
-
-  Stream<List<int>> subscribe();
-}
-
-class BTDevice {
-  final String? name;
-  final String id;
-
-  BTDevice(this.name, this.id);
+  void listen();
 }
