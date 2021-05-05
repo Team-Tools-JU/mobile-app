@@ -23,6 +23,8 @@ class Bluetooth implements BluetoothInterface {
   StreamController<List<int>> incomingMessages =
       StreamController<List<int>>.broadcast();
 
+  bool _isScanning = false;
+
   @override
   Future<void> connect() async {
     await selectedDevice.connect(autoConnect: false);
@@ -60,8 +62,13 @@ class Bluetooth implements BluetoothInterface {
       });
     });
 
-    await flutterBlue.startScan(timeout: duration);
+    flutterBlue.isScanning.listen((isScanning) {
+      _isScanning = isScanning;
+    });
 
+    if (!_isScanning) {
+      await flutterBlue.startScan(timeout: duration);
+    }
     return foundDevices;
   }
 
