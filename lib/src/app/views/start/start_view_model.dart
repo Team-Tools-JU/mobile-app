@@ -41,6 +41,24 @@ class StartViewModel extends IndexTrackingViewModel {
       }
     });
 
+    _bluetooth.flutterBlue.state.listen((state) async {
+      switch (state) {
+        case BluetoothState.turningOff:
+        case BluetoothState.off:
+          showRequestDialog();
+          break;
+        case BluetoothState.on:
+          if (await _location.requestService()) {
+            scan();
+          } else {
+            showRequestDialog();
+          }
+          break;
+        default:
+          break;
+      }
+    });
+
     await requestPermissions();
   }
 
@@ -73,25 +91,29 @@ class StartViewModel extends IndexTrackingViewModel {
   }
 
   Future<void> onPermissionsGiven() async {
-    bool bluetoothOn = await _bluetooth.flutterBlue.isOn;
-    if (!bluetoothOn) {
+    // bool bluetoothOn = await _bluetooth.flutterBlue.isOn;
+    // await _location.requestService();
+    if (!await _location.requestService() ||
+        !await _bluetooth.flutterBlue.isOn) {
       _android.openBluetoothSetting();
-    }
-
-    bool locationOn = await _location.requestService();
-    print(bluetoothOn && locationOn);
-    servicesEnabled.add(bluetoothOn && locationOn);
-
-    if (bluetoothOn && locationOn) {
-      _bluetooth.flutterBlue.state.listen((state) {
-        if (state == BluetoothState.turningOff) {
-          showRequestDialog();
-        }
-      });
-      scan();
     } else {
-      showRequestDialog();
+      scan();
     }
+
+    // bool locationOn = await _location.requestService();
+    // print(bluetoothOn && locationOn);
+    // servicesEnabled.add(bluetoothOn && locationOn);
+
+    // if (bluetoothOn && locationOn) {
+    //   _bluetooth.flutterBlue.state.listen((state) {
+    //     if (state == BluetoothState.turningOff) {
+    //       showRequestDialog();
+    //     }
+    //   });
+    //   scan();
+    // } else {
+    //   showRequestDialog();
+    // }
   }
 
   Future<void> requestPermissions() async {
