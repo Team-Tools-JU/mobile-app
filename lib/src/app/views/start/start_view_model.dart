@@ -55,19 +55,21 @@ class StartViewModel extends IndexTrackingViewModel {
   }
 
   void showRequestDialog() {
-    Get.dialog(AlertDialog(
-        title: new Text("Required"),
-        content: new Text(
-            "Bluetooth and location services are required for the app to function."),
-        actions: <Widget>[
-          TextButton(
-            child: Text('Try again'),
-            onPressed: () {
-              Get.back();
-              requestPermissions();
-            },
-          )
-        ]));
+    final String title = "Required";
+    final String msg =
+        "Bluetooth and location services are required for the app to function.";
+    final String btnText = "Try again";
+    Get.rawSnackbar(
+        title: title,
+        message: msg,
+        mainButton: TextButton(
+          child: Text(btnText),
+          onPressed: () {
+            Get.back();
+            requestPermissions();
+          },
+        ),
+        duration: Duration(seconds: 10));
   }
 
   Future<void> onPermissionsGiven() async {
