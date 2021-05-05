@@ -4,6 +4,8 @@ import 'dart:math';
 class PathPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
+    //this is current "mock-data"
+    //not sure about the exakt form of the path data we will receive.
     final points1 = [
       Offset(1, 1),
       Offset(100, 75),
@@ -19,26 +21,22 @@ class PathPainter extends CustomPainter {
     ];
     final paths = [points1, points2];
 
+    // all paths are looped through one by one
     for (List<Offset> points in paths) {
+      // paint is set with a random color to distinguish them from each other
       Paint paint = Paint()
         ..color = Colors.primaries[Random().nextInt(Colors.primaries.length)]
         ..style = PaintingStyle.stroke
         ..strokeWidth = 2.0;
-      //canvas.drawPoints(pointMode, points, paint);
+
       Path path = Path();
       Offset origin = points[0];
+
+      //a specific path is looped through
       path.moveTo(origin.dx, origin.dy);
       for (Offset o in points) {
         path.lineTo(o.dx, o.dy);
-        //såhär går det lösas med
       }
-
-      //operations here
-      //path.moveTo(size.width / 2, size.height / 2);
-      //path.lineTo(size.width, size.height);
-
-      //path.addPolygon(points, close);
-      //path.close();
       canvas.drawPath(path, paint);
     }
   }
