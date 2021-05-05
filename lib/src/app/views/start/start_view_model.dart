@@ -41,6 +41,24 @@ class StartViewModel extends IndexTrackingViewModel {
       }
     });
 
+    _bluetooth.flutterBlue.state.listen((state) async {
+      switch (state) {
+        case BluetoothState.turningOff:
+        case BluetoothState.off:
+          showRequestDialog();
+          break;
+        case BluetoothState.on:
+          if (await _location.requestService()) {
+            scan();
+          } else {
+            showRequestDialog();
+          }
+          break;
+        default:
+          break;
+      }
+    });
+
     await requestPermissions();
   }
 
@@ -55,40 +73,29 @@ class StartViewModel extends IndexTrackingViewModel {
   }
 
   void showRequestDialog() {
-    Get.dialog(AlertDialog(
-        title: new Text("Required"),
-        content: new Text(
-            "Bluetooth and location services are required for the app to function."),
-        actions: <Widget>[
-          TextButton(
-            child: Text('Try again'),
-            onPressed: () {
-              Get.back();
-              requestPermissions();
-            },
-          )
-        ]));
+    final String title = "Required";
+    final String msg =
+        "Bluetooth and location services are required for the app to function.";
+    final String btnText = "Try again";
+    Get.rawSnackbar(
+        title: title,
+        message: msg,
+        mainButton: TextButton(
+          child: Text(btnText),
+          onPressed: () {
+            Get.back();
+            requestPermissions();
+          },
+        ),
+        duration: Duration(seconds: 10));
   }
 
   Future<void> onPermissionsGiven() async {
-    bool bluetoothOn = await _bluetooth.flutterBlue.isOn;
-    if (!bluetoothOn) {
+    if (!await _location.requestService() ||
+        !await _bluetooth.flutterBlue.isOn) {
       _android.openBluetoothSetting();
-    }
-
-    bool locationOn = await _location.requestService();
-    print(bluetoothOn && locationOn);
-    servicesEnabled.add(bluetoothOn && locationOn);
-
-    if (bluetoothOn && locationOn) {
-      _bluetooth.flutterBlue.state.listen((state) {
-        if (state == BluetoothState.turningOff) {
-          showRequestDialog();
-        }
-      });
-      scan();
     } else {
-      showRequestDialog();
+      scan();
     }
   }
 
