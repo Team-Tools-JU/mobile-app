@@ -1,21 +1,14 @@
-// Import the CollisionEvent class
-import 'dart:html';
-import 'dart:js_util';
-
-import 'package:flutter/cupertino.dart';
-
 import 'collisionEventData.dart';
+import 'positionEventData.dart';
 
 // Import the firebase_core and cloud_firestore plugin
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mobile_app/Database/collisionEventData.dart';
 
 class Database {
+  //CRUD operations for Collision Event
   CollectionReference collisionHistory =
       FirebaseFirestore.instance.collection("collisionHistory");
-
-  CollectionReference positionHistory =
-      FirebaseFirestore.instance.collection("positionHistory");
 
   Future<void> getAllCollisionEvents() async {
     QuerySnapshot querySnapshot = await collisionHistory.get();
@@ -37,6 +30,7 @@ class Database {
   Future<void> addCollisionEvent(CollisionEvent collisionEvent) {
     return collisionHistory
         .add({
+          //Convert to String before saving
           'coord_x': collisionEvent.collisionCoord_x.toString(),
           'coord_y': collisionEvent.collisionCoord_y.toString(),
           'date': collisionEvent.collisionDate
@@ -82,7 +76,7 @@ class Database {
         .update({
           'coord_x': collisionEvent.collisionCoord_x.toString(),
           'coord_y': collisionEvent.collisionCoord_y.toString(),
-          'date': collisionEvent.collisionDate.toString()
+          'date': collisionEvent.collisionDate
         })
         .then((value) => print("Collision event updated."))
         .catchError((error) => print("Failed to update event: $error"));
@@ -92,10 +86,47 @@ class Database {
     DocumentReference documentReference = collisionHistory.doc(sessionID);
     CollisionEvent retrievedEvent;
     await documentReference.get().then((snapshot) {
-      retrievedEvent.setXCoord(snapshot.data()['coord_x']);
-      retrievedEvent.setYCoord(snapshot.data()['coord_y']);
+      retrievedEvent.setXCoord(snapshot.data()['coord_x'].toInt());
+      retrievedEvent.setYCoord(snapshot.data()['coord_y'].toInt());
       retrievedEvent..setDate(snapshot.data()['date']);
     });
     return retrievedEvent;
   }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// CRUD operations for Position Event
+  CollectionReference positionHistory =
+      FirebaseFirestore.instance.collection("positionHistory");
+
+  Future<void> getAllPositionEvents() async {
+    QuerySnapshot querySnapshot = await positionHistory.get();
+    final allPositions = querySnapshot.docs.map((doc) => doc.data()).toList();
+    print(allPositions);
+  }
+
+  Future<void> addPositionEvent(PositionEvent positionEvent) {
+    return positionHistory
+        .add({
+          'coord_x': positionEvent.positionCoord_x.toString(),
+          'coord_y': positionEvent.positionCoord_y.toString(),
+          'dateTime': positionEvent.positionDateTime
+        })
+        .then((value) => print("Position event added"))
+        .catchError((error) => print("Failed to add position event: $error"));
+  }
+
+  Future<void> deletePositionEvent(PositionEvent positionEvent) {
+    return positionHistory
+        .where('sessionID', isEqualTo: positionEvent.sessionID)
+        .get()
+        .then((snapshot) {
+      snapshot.docs.first.reference
+          .delete()
+          .catchError((error) => print("Failed to add position event: $error"));
+    });
+  }
+
+  //Should not be able to update a position if mower already been there?
+
 }
