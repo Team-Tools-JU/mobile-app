@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'collisionEventData.dart';
 import 'positionEventData.dart';
 
@@ -103,6 +105,14 @@ class Database {
     QuerySnapshot querySnapshot = await positionHistory.get();
     final allPositions = querySnapshot.docs.map((doc) => doc.data()).toList();
     print(allPositions);
+  }
+
+  Future<List> getPositionEventInOrder() async {
+    QuerySnapshot querySnapshot =
+        await positionHistory.orderBy('dateTime', descending: true).get();
+    final positionsInOrder =
+        querySnapshot.docs.map((doc) => doc.data()).toList(growable: true);
+    return positionsInOrder;
   }
 
   Future<void> addPositionEvent(PositionEvent positionEvent) {
