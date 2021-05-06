@@ -1,14 +1,17 @@
 import 'dart:core';
 
+import 'dart:ffi';
+
 class PositionEvent {
+  Float direction; // 180 - (-180)
+  int length; //Lenght in mm
+  String positionDateTime;
+  int sessionID;
   int positionCoord_x;
   int positionCoord_y;
-  String positionDateTime;
-  String sessionID;
 
-  PositionEvent(
-      this.positionCoord_x, this.positionCoord_y, this.positionDateTime,
-      {this.sessionID});
+  PositionEvent(this.direction, this.length, this.positionDateTime,
+      {this.positionCoord_x, this.positionCoord_y, this.sessionID});
 
   int getXCoord() {
     return this.positionCoord_x;
@@ -20,6 +23,10 @@ class PositionEvent {
 
   String getpositionDate() {
     return this.positionDateTime;
+  }
+
+  void calculateCoord(Float direction, int length) {
+    int newX, newY;.ökjö
   }
 
   void setXCoord(int newXCoord) {

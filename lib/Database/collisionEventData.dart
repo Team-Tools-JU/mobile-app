@@ -1,45 +1,51 @@
 import 'dart:core';
 
+import 'package:mobile_app/Database/positionEventData.dart';
+
 class CollisionEvent {
-  int collisionCoord_x;
-  int collisionCoord_y;
+  PositionEvent collisionPosition;
   String collisionDate;
-  String sessionID; //Session durring which this collision occurred
+  int sessionID; //Session durring which this collision occurred, must be an int and ascending
 
-  CollisionEvent(
-      this.collisionCoord_x, this.collisionCoord_y, this.collisionDate,
-      {this.sessionID});
+  // int collisionCoord_x;
+  // int collisionCoord_y;
 
-  int getXCoord() {
-    return this.collisionCoord_x;
-  }
-
-  int getYCoord() {
-    return this.collisionCoord_y;
-  }
+  CollisionEvent(this.collisionPosition, this.collisionDate, {this.sessionID});
 
   String getCollisionDate() {
     return this.collisionDate;
   }
 
-  void setXCoord(int newXCoord) {
-    this.collisionCoord_x = newXCoord;
+  PositionEvent getCollisionPosition(String sessionID) {
+    return this.collisionPosition;
   }
 
-  void setYCoord(int newYCoord) {
-    this.collisionCoord_y = newYCoord;
+  void setCollisionPos(PositionEvent newCollisionPos) {
+    this.collisionPosition = newCollisionPos;
   }
 
   void setDate(String newDate) {
-    this.collisionDate = newDate;
+    this.collisionDate = newDate; //Can't we use the position date&time?
   }
 
   CollisionEvent updateCollisionEvent(
-      int newXCoord, int newYCoord, String newCollisionDate) {
-    return CollisionEvent(
-      this.collisionCoord_x = newXCoord,
-      this.collisionCoord_y = newYCoord,
-      this.collisionDate = newCollisionDate,
-    );
+      PositionEvent newCollisionPos, String newCollisionTime) {
+    return CollisionEvent(newCollisionPos, newCollisionTime);
   }
+
+  // int getXCoord() {
+  //   return this.collisionCoord_x;
+  // }
+
+  // int getYCoord() {
+  //   return this.collisionCoord_y;
+  // }
+
+  // void setXCoord(int newXCoord) {
+  //   this.collisionCoord_x = newXCoord;
+  // }
+
+  // void setYCoord(int newYCoord) {
+  //   this.collisionCoord_y = newYCoord;
+  // }
 }
