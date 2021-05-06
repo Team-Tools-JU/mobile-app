@@ -8,14 +8,13 @@ abstract class BluetoothInterface {
   late BluetoothCharacteristic readChar;
   late BluetoothCharacteristic writeChar;
   StreamController<bool> isConnected = StreamController<bool>.broadcast();
-  StreamController<List<int>> incomingMessages =
-      StreamController<List<int>>.broadcast();
+  StreamController<String> reciever = StreamController<String>.broadcast();
 
   Future<List<BluetoothDevice>> scan(Duration duration);
 
   Future<void> connect();
 
-  Future<dynamic> write(List<int> data);
+  Future<dynamic> write(String data);
 
-  void listen();
+  Future<void> listen();
 }
