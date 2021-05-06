@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 
 class SettingsViewModel extends ChangeNotifier {
+  late bool _simulationMode;
+  late bool _manualSteering;
 
-  bool simulationMode;
-  bool manualSteering;
-
-  bool get _simulationMode => simulationMode;
-  bool get _manualSteering => manualSteering;
+  bool get simulationMode => _simulationMode;
+  bool get manualSteering => _manualSteering;
 
   void init() {
-    simulationMode = false;
-    manualSteering = false;
+    _simulationMode = false;
+    _manualSteering = false;
   }
 
   @override

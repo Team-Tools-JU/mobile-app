@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mobile_app/src/app/models/implementation/android_service.dart';
+import 'package:mobile_app/src/app/models/implementation/bluetooth.dart';
+import 'package:mobile_app/src/app/views/connect/connect_view.dart';
+import 'package:mobile_app/src/app/views/start/start_view.dart';
+import 'package:get_it/get_it.dart';
 import 'package:mobile_app/src/app/views/navigation/navigation_view.dart';
 import 'package:mobile_app/src/app/views/settings/settings_view.dart';
 import 'package:mobile_app/src/app/views/settings/settings_view_model.dart';
@@ -7,6 +13,9 @@ import 'package:mobile_app/src/app/views/steering/steering_view.dart';
 import 'package:mobile_app/src/app/views/history/history_view.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  GetIt.I.registerSingleton<Bluetooth>(Bluetooth());
+  GetIt.I.registerSingleton<AndroidService>(AndroidService());
   runApp(App());
 }
 
@@ -14,7 +23,7 @@ class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
