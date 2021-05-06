@@ -13,10 +13,13 @@ class Body extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          SpinKitFadingCircle(size: 100, color: Colors.grey),
+          if (!this.model.isConnected)
+            SpinKitFadingCircle(size: 100, color: Colors.grey),
           SizedBox(height: 20),
           Text(
-            'Trying to connect....',
+            !this.model.isConnected
+                ? 'Trying to connect....'
+                : 'Connection established to mower.',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ],
