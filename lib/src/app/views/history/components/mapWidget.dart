@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/src/app/views/history/components/pathPainter.dart';
 import 'package:mobile_app/src/app/views/history/history_view_model.dart';
 
 class MapWidget extends StatefulWidget {
@@ -15,6 +16,10 @@ class _MapWidgetState extends State<MapWidget> {
     // TODO: Implement Map view properly
     return Center(
       child: Container(
+          child: CustomPaint(
+        painter: PathPainter(),
+      )
+          
           margin: const EdgeInsets.all(0.0),
           color: Colors.amber[600],
           alignment: Alignment.center,
@@ -22,9 +27,12 @@ class _MapWidgetState extends State<MapWidget> {
           height: 200.0,
           child: Text('Placeholder for map',
               style: Theme.of(context)
-                  .textTheme
-                  .headline4!
-                  .copyWith(color: Colors.white))),
+                  .textTheme        
+                  .headline4
+                  .copyWith(color: Colors.white))
+                  
+          ),
+
     );
   }
 }
