@@ -48,7 +48,7 @@ class NavigationView extends StatelessWidget {
             ),
           ],
           type: BottomNavigationBarType.shifting,
-          currentIndex: model.currentIndex,
+          currentIndex: model.fetchIndex(),
           selectedItemColor: Colors.amber[800],
           unselectedItemColor: Colors.grey,
           iconSize: 40,
