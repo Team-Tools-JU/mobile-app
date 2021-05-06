@@ -20,7 +20,7 @@ class SettingsViewModel extends BaseViewModel {
     _controller.steeringEnabled.stream.listen((steering) {
       _manualSteering = steering;
       if (steering) {
-        Get.off(SteeringView());
+        Future.delayed(Duration(seconds: 1), () => Get.off(SteeringView()));
       }
       notifyListeners();
     });
