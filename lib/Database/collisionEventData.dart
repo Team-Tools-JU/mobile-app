@@ -30,6 +30,10 @@ class CollisionEvent {
     this.collisionCoord_y = newYCoord;
   }
 
+  void setDate(String newDate) {
+    this.collisionDate = newDate;
+  }
+
   CollisionEvent updateCollisionEvent(
       int newXCoord, int newYCoord, String newCollisionDate) {
     return CollisionEvent(
