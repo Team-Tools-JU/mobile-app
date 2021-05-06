@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_app/src/app/models/implementation/bluetooth_constants.dart';
+import 'package:mobile_app/src/app/models/implementation/navigation_controller.dart';
+import 'package:mobile_app/src/app/views/navigation/navigation_view.dart';
+import 'package:mobile_app/src/app/views/navigation/navigation_view_model.dart';
 import 'package:mobile_app/src/app/views/settings/settings_view.dart';
 import 'package:stacked/stacked.dart';
 import 'dart:async';
@@ -16,6 +19,7 @@ class StartViewModel extends IndexTrackingViewModel {
   Bluetooth _bluetooth = GetIt.I<Bluetooth>();
   L.Location _location = new L.Location();
   AndroidService _android = GetIt.I<AndroidService>();
+  NavigationController _controller = GetIt.I<NavigationController>();
 
   StreamController<bool> servicesEnabled = StreamController<bool>.broadcast();
   StreamController<bool> permissionsGiven = StreamController<bool>.broadcast();
@@ -31,7 +35,10 @@ class StartViewModel extends IndexTrackingViewModel {
 
   void init() async {
     bluetoothStatusText = 'initialised';
-    isConnected = false;
+
+    _bluetooth.isConnected.stream.listen((state) {
+      isConnected = state;
+    });
 
     permissionsGiven.stream.listen((permitted) {
       if (permitted) {
@@ -45,6 +52,7 @@ class StartViewModel extends IndexTrackingViewModel {
       switch (state) {
         case BluetoothState.turningOff:
         case BluetoothState.off:
+          _bluetooth.isConnected.add(false);
           showRequestDialog();
           break;
         case BluetoothState.on:
@@ -58,18 +66,20 @@ class StartViewModel extends IndexTrackingViewModel {
           break;
       }
     });
-
-    await requestPermissions();
+    if (!isConnected) {
+      await requestPermissions();
+    }
   }
 
   void onScanResults(List<BluetoothDevice> devices) {
-    for (BluetoothDevice device in devices) {
-      if (device.id.id == DEVICE_ID) {
-        connect(device);
-      }
-      print('${device.name} ${device.id} found!');
-    }
+    BluetoothDevice device =
+        devices.where((device) => device.id.id == DEVICE_ID).first;
+
+    print("FOUND THE DEVICE");
+    connect(device);
     notifyListeners();
+
+    print('${device.name} ${device.id} found!');
   }
 
   void showRequestDialog() {
@@ -132,10 +142,10 @@ class StartViewModel extends IndexTrackingViewModel {
     try {
       await _bluetooth.connect();
       _bluetooth.isConnected.add(true);
-      isConnected = true;
-      notifyListeners();
       print('connected to address: ${device.id} name: ${device.name}');
-      Future.delayed(Duration(seconds: 2), () => Get.to(SettingsView()));
+      // notifyListeners();
+      _controller.currentIndex = 1;
+      Future.delayed(Duration(seconds: 2), () => {Get.off(NavigationView())});
     } catch (e) {
       print(e);
       print('connection failed to address: ${device.id} name: ${device.name}');
