@@ -13,6 +13,9 @@ class SteeringView extends StatelessWidget {
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
+          leading: BackButton(
+            onPressed: () => {model.disableSteering()},
+          ),
           title: Text("Steering"),
           actions: <Widget>[
             IconButton(

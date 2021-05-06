@@ -132,8 +132,10 @@ class StartViewModel extends IndexTrackingViewModel {
     try {
       await _bluetooth.connect();
       _bluetooth.isConnected.add(true);
+      isConnected = true;
+      notifyListeners();
       print('connected to address: ${device.id} name: ${device.name}');
-      Get.to(SettingsView());
+      Future.delayed(Duration(seconds: 2), () => Get.to(SettingsView()));
     } catch (e) {
       print(e);
       print('connection failed to address: ${device.id} name: ${device.name}');
