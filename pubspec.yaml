@@ -33,8 +33,8 @@ dependencies:
   # Firbase Core 
   firebase_core: ^1.0.4
 
-  # Firebase cloud storage
-  firebase_storage: ^8.0.4
+  # Firebase firestore
+  cloud_firestore: ^1.0.6
 
   # Firebase realtime database 
   firebase_database: ^6.1.2
