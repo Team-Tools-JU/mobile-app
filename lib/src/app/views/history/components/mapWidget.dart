@@ -21,7 +21,6 @@ class _MapWidgetState extends State<MapWidget> {
         Padding(
           padding: EdgeInsets.all(200.0),
           child: Container(
-            color: Colors.greenAccent,
             child: CustomPaint(
               painter: PathPainter(),
             ),
