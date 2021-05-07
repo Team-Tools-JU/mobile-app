@@ -6,7 +6,7 @@ import 'bluetooth_constants.dart';
 
 class Bluetooth implements BluetoothInterface {
   @override
-  StreamController<bool> isConnected = StreamController<bool>.broadcast();
+  StreamController<bool> isConnectedStream = StreamController<bool>.broadcast();
 
   @override
   FlutterBlue flutterBlue = FlutterBlue.instance;
@@ -24,6 +24,8 @@ class Bluetooth implements BluetoothInterface {
   StreamController<String> reciever = StreamController<String>.broadcast();
 
   bool _isScanning = false;
+
+  bool isConnected = false;
 
   @override
   Future<void> connect() async {

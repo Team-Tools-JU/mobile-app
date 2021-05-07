@@ -29,8 +29,8 @@ class SteeringViewModel extends BaseViewModel {
     isConnected = false;
     // notifyListeners();
 
-    _bluetooth.isConnected.stream.listen((state) {
-      isConnected = state;
+    _bluetooth.isConnectedStream.stream.listen((state) {
+      _bluetooth.isConnected = isConnected = state;
 
       if (isConnected) {
         // List<int> value = utf8.encode("AR");
@@ -42,7 +42,7 @@ class SteeringViewModel extends BaseViewModel {
 
       } else {
         _navigationController.currentIndex = 0;
-        Get.back();
+        Get.off(NavigationView());
       }
     });
   }

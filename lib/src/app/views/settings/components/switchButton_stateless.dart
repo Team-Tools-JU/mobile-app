@@ -57,21 +57,26 @@ class SwitchButtonStateless extends StatelessWidget {
               Container(
                 height: 40,
                 width: 125,
-                child: LiteRollingSwitch(
-                  value: model.manualSteering,
-                  textOn: 'ON',
-                  textOff: 'OFF',
-                  colorOn: Colors.greenAccent,
-                  colorOff: Colors.redAccent,
-                  iconOn: Icons.done,
-                  iconOff: Icons.power_settings_new,
-                  textSize: 18.0,
-                  onChanged: (bool isEnabled) {
-                    if (isEnabled) {
-                      model.activateSteering();
-                    }
-                  },
-                ),
+                child: !model.isConnected
+                    ? Text(
+                        "Must be connected.",
+                        style: TextStyle(fontSize: 18),
+                      )
+                    : LiteRollingSwitch(
+                        value: model.manualSteering,
+                        textOn: 'ON',
+                        textOff: 'OFF',
+                        colorOn: Colors.greenAccent,
+                        colorOff: Colors.redAccent,
+                        iconOn: Icons.done,
+                        iconOff: Icons.power_settings_new,
+                        textSize: 18.0,
+                        onChanged: (bool isEnabled) {
+                          if (isEnabled) {
+                            model.activateSteering();
+                          }
+                        },
+                      ),
               )
             ],
           ),

@@ -16,8 +16,8 @@ class NavigationViewModel extends IndexTrackingViewModel {
   }
 
   void onBluetoothConnect() {
-    _bluetooth.isConnected.stream.listen((state) {
-      isConnected = state;
+    _bluetooth.isConnectedStream.stream.listen((state) {
+      _bluetooth.isConnected = isConnected = state;
     });
   }
 
