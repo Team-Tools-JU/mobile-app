@@ -33,6 +33,7 @@ class SettingsViewModel extends BaseViewModel {
 
     _bluetooth.isConnectedStream.stream.listen((state) {
       _bluetooth.isConnected = isConnected = state;
+      notifyListeners();
     });
   }
 
