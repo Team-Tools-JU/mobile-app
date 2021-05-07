@@ -7,7 +7,8 @@ abstract class BluetoothInterface {
   late BluetoothDevice selectedDevice;
   late BluetoothCharacteristic readChar;
   late BluetoothCharacteristic writeChar;
-  StreamController<bool> isConnected = StreamController<bool>.broadcast();
+  bool isConnected = false;
+  StreamController<bool> isConnectedStream = StreamController<bool>.broadcast();
   StreamController<String> reciever = StreamController<String>.broadcast();
 
   Future<List<BluetoothDevice>> scan(Duration duration);

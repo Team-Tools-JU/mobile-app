@@ -36,8 +36,8 @@ class StartViewModel extends IndexTrackingViewModel {
   void init() async {
     bluetoothStatusText = 'initialised';
 
-    _bluetooth.isConnected.stream.listen((state) {
-      isConnected = state;
+    _bluetooth.isConnectedStream.stream.listen((state) {
+      _bluetooth.isConnected = isConnected = state;
     });
 
     permissionsGiven.stream.listen((permitted) {
@@ -52,7 +52,7 @@ class StartViewModel extends IndexTrackingViewModel {
       switch (state) {
         case BluetoothState.turningOff:
         case BluetoothState.off:
-          _bluetooth.isConnected.add(false);
+          _bluetooth.isConnectedStream.add(false);
           showRequestDialog();
           break;
         case BluetoothState.on:
@@ -141,7 +141,7 @@ class StartViewModel extends IndexTrackingViewModel {
     _bluetooth.selectedDevice = device;
     try {
       await _bluetooth.connect();
-      _bluetooth.isConnected.add(true);
+      _bluetooth.isConnectedStream.add(true);
       print('connected to address: ${device.id} name: ${device.name}');
       // notifyListeners();
       _controller.currentIndex = 1;
