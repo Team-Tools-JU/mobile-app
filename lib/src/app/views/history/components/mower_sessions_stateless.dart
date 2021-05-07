@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
+import '../history_view_model.dart';
 
 
-class MowerSessions extends StatefulWidget {
-  const MowerSessions({Key? key}) : super(key: key);
+class MowerSessionsStateless extends StatelessWidget {
 
-  @override
-  _MowerSessions createState() => _MowerSessions();
-}
+  final HistoryViewModel model;
 
-class _MowerSessions extends State<MowerSessions> {
-
-  String dropdownValue = 'Session one';
+  const MowerSessionsStateless(this.model, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +19,17 @@ class _MowerSessions extends State<MowerSessions> {
             border: Border.all()),
           child: DropdownButtonHideUnderline(
             child:  DropdownButton<String>(
-              value: dropdownValue,
+              value: model.firstSession,
               icon: Icon(Icons.arrow_drop_down),
               iconSize: 35,
               elevation: 16,
               style: TextStyle(color: Colors.black, fontSize: 20),
               onChanged: (String? newValue) {
-                setState(() {
-                  // TODO: Send data to Painter to draw new session
-                  dropdownValue = newValue!;
-                });
+
+                model.setSessionName(newValue!);
+                (context as Element).markNeedsBuild();
+
+                // TODO: Send data to Painter to draw new session
               },
               // TODO: Retrieve the sessions from backend and add to list
               items: <String>['Session one', 'Session two', 'Session three', 'Session four']
