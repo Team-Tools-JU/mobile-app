@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:mobile_app/src/app/models/interfaces/bluetooth.dart';
 import 'bluetooth_constants.dart';
@@ -20,8 +21,7 @@ class Bluetooth implements BluetoothInterface {
   late BluetoothCharacteristic writeChar;
 
   @override
-  StreamController<List<int>> incomingMessages =
-      StreamController<List<int>>.broadcast();
+  StreamController<String> reciever = StreamController<String>.broadcast();
 
   bool _isScanning = false;
 
@@ -36,17 +36,11 @@ class Bluetooth implements BluetoothInterface {
 
     // Test code for reading and writing that will be moved later
     for (BluetoothCharacteristic c in service.characteristics) {
-      if (c.uuid == Guid(READ_CHAR_UUID)) {
-        readChar = c;
-        List<int> value = await c.read();
-
-        print("read: $value from char: $READ_CHAR_UUID");
-      }
       if (c.uuid == Guid(WRITE_CHAR_UUID)) {
+        print(c.uuid);
         writeChar = c;
-        List<int> value = [65];
-        await c.write(value);
-        print("wrote: $value to char: $WRITE_CHAR_UUID");
+        readChar = c;
+        await write("AR");
       }
     }
   }
@@ -73,15 +67,17 @@ class Bluetooth implements BluetoothInterface {
   }
 
   @override
-  Future<void> write(List<int> message) async {
-    await writeChar.write(message);
+  Future<void> write(String message) async {
+    await writeChar.write(utf8.encode(message));
   }
 
   @override
-  void listen() async {
-    while (true) {
-      Future.delayed(Duration(seconds: 1),
-          () async => {incomingMessages.add(await readChar.read())});
-    }
+  Future<void> listen() async {
+    // await readChar.setNotifyValue(true);
+    print(readChar.properties);
+    readChar.value.listen((msg) {
+      print("MESSAGE: $msg");
+      reciever.add(utf8.decode(msg));
+    });
   }
 }
