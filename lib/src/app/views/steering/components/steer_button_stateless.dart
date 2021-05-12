@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/src/app/models/implementation/mower_commands.dart';
 import 'package:mobile_app/src/app/views/steering/steering_view_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:signal_strength_indicator/signal_strength_indicator.dart';
@@ -47,52 +48,81 @@ class SteerButtonStateless extends StatelessWidget {
         Container(
             height: 70.0,
             width: 110.0,
-            child: IconButton(
-              icon: FaIcon(FontAwesomeIcons.solidArrowAltCircleUp, size: 90.0),
-              onPressed: () {
-                print('Up arrow pressed');
-                // TODO: Send data to mower
-              },
-            )),
+            child: GestureDetector(
+                onLongPressStart: (_) {
+                  model.send(MOWER_FORWARD);
+                },
+                onLongPressEnd: (_) {
+                  model.send(MOWER_IDLE);
+                },
+                child: IconButton(
+                  icon: FaIcon(FontAwesomeIcons.solidArrowAltCircleUp,
+                      size: 90.0),
+                  onPressed: () {
+                    print('Up arrow pressed');
+                    // TODO: Send data to mower
+                  },
+                ))),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Container(
-              height: 70.0,
-              width: 110.0,
-              child: IconButton(
-                icon: FaIcon(FontAwesomeIcons.solidArrowAltCircleLeft,
-                    size: 90.0),
-                onPressed: () {
-                  print('Left arrow pressed');
-                  // TODO: Send data to mower
-                },
-              ),
-            ),
+                height: 70.0,
+                width: 110.0,
+                child: GestureDetector(
+                  onLongPressStart: (_) {
+                    model.send(MOWER_LEFT);
+                  },
+                  onLongPressEnd: (_) {
+                    model.send(MOWER_IDLE);
+                  },
+                  child: IconButton(
+                    icon: FaIcon(FontAwesomeIcons.solidArrowAltCircleLeft,
+                        size: 90.0),
+                    onPressed: () {
+                      print('Left arrow pressed');
+                      // TODO: Send data to mower
+                    },
+                  ),
+                )),
             Container(
                 height: 70.0,
                 width: 110.0,
-                child: IconButton(
-                  icon: FaIcon(FontAwesomeIcons.solidArrowAltCircleRight,
-                      size: 90.0),
-                  onPressed: () {
-                    print('Right arrow pressed');
-                    // TODO: Send data to mower
-                  },
-                )),
+                child: GestureDetector(
+                    onLongPressStart: (_) {
+                      model.send(MOWER_RIGHT);
+                    },
+                    onLongPressEnd: (_) {
+                      model.send(MOWER_IDLE);
+                    },
+                    child: IconButton(
+                      icon: FaIcon(FontAwesomeIcons.solidArrowAltCircleRight,
+                          size: 90.0),
+                      onPressed: () {
+                        print('Right arrow pressed');
+                        // TODO: Send data to mower
+                      },
+                    ))),
           ],
         ),
         Container(
             height: 70.0,
             width: 110.0,
-            child: IconButton(
-              icon:
-                  FaIcon(FontAwesomeIcons.solidArrowAltCircleDown, size: 90.0),
-              onPressed: () {
-                print('Down arrow pressed');
-                // TODO: Send data to mower
-              },
-            )),
+            child: GestureDetector(
+                onLongPressStart: (_) {
+                  model.send(MOWER_BACKWARD);
+                },
+                onLongPressEnd: (_) {
+                  model.send(MOWER_IDLE);
+                },
+                child: IconButton(
+                  icon: FaIcon(FontAwesomeIcons.solidArrowAltCircleDown,
+                      size: 90.0),
+                  onPressed: () {
+                    print('Down arrow pressed');
+                    // TODO: Send data to mower
+                  },
+                ))),
       ],
     );
   }
