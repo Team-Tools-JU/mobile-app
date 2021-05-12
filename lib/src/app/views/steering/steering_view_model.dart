@@ -47,8 +47,8 @@ class SteeringViewModel extends BaseViewModel {
     });
   }
 
-  void write() {
-    _bluetooth.write("AR");
+  void send(String command) {
+    _bluetooth.write(command);
   }
 
   String updateBluetoothStatusText() {
