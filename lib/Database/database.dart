@@ -1,9 +1,7 @@
-import 'collisionEventData.dart';
-import 'positionEventData.dart';
+import 'positionEvent.dart';
 
 // Import the firebase_core and cloud_firestore plugin
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:mobile_app/Database/collisionEventData.dart';
 
 class Database {
   //CRUD operations for Collision Event
@@ -16,23 +14,24 @@ class Database {
     print(allEvents);
   }
 
-  Future<void> addCollisionEvent(CollisionEvent collisionEvent) {
-    return collisionHistory
-        .add({
-          //Convert to String before saving
-          'coord_x':
-              collisionEvent.collisionPosition.positionCoord_x.toString(),
-          'coord_y':
-              collisionEvent.collisionPosition.positionCoord_y.toString(),
-          'date': collisionEvent.collisionDate
-        })
-        .then((data) => print("Collision event added"))
-        .catchError((error) => print("Failed to add collision event: $error"));
+  Future<void> addCollisionEvent(PositionEvent collisionPosition) {
+    if (collisionPosition.collision == true) {
+      return collisionHistory
+          .add({
+            //Convert to String before saving
+            'coord_x': collisionPosition.pos_CoordX.toString(),
+            'coord_y': collisionPosition.pos_CoordY.toString(),
+            'date': collisionPosition.positionDateTime
+          })
+          .then((data) => print("Collision event added"))
+          .catchError(
+              (error) => print("Failed to add collision event: $error"));
+    }
   }
 
-  Future<void> deleteCollisionEvent(CollisionEvent collisionEvent) {
+  Future<void> deleteCollisionEvent(PositionEvent collisionPosition) {
     return collisionHistory
-        .where('sessionID', isEqualTo: collisionEvent.sessionID)
+        .where('sessionID', isEqualTo: collisionPosition.sessionID)
         .get()
         .then((snapshot) {
       snapshot.docs.first.reference.delete().catchError(
@@ -40,64 +39,28 @@ class Database {
     });
   }
 
-  Future<void> updateCollisionEvent(CollisionEvent collisionEvent) {
+  Future<void> updateCollisionEvent(PositionEvent collisionPosition) {
     return collisionHistory
-        .doc(collisionEvent.sessionID.toString())
+        .doc(collisionPosition.sessionID.toString())
         .update({
-          'coord_x':
-              collisionEvent.collisionPosition.positionCoord_x.toString(),
-          'coord_y':
-              collisionEvent.collisionPosition.positionCoord_y.toString(),
-          'date': collisionEvent.collisionDate
+          'coord_x': collisionPosition.pos_CoordX.toString(),
+          'coord_y': collisionPosition.pos_CoordY.toString(),
+          'date': collisionPosition.positionDateTime
         })
         .then((value) => print("Collision event updated."))
         .catchError((error) => print("Failed to update event: $error"));
   }
 
-  Future<CollisionEvent> getCollisionEventByID(String sessionID) async {
+  Future<PositionEvent> getCollisionEventByID(String sessionID) async {
     DocumentReference documentReference = collisionHistory.doc(sessionID);
-    CollisionEvent retrievedEvent;
+    PositionEvent retrievedEvent;
     await documentReference.get().then((snapshot) {
-      retrievedEvent.collisionPosition
-          .setXCoord(snapshot.data()['coord_x'].toInt());
-      retrievedEvent.collisionPosition
-          .setXCoord(snapshot.data()['coord_y'].toInt());
-      retrievedEvent.collisionPosition.setDate(snapshot.data()['date']);
+      retrievedEvent.setXCoord(snapshot.data()['coord_x'].toInt());
+      retrievedEvent.setXCoord(snapshot.data()['coord_y'].toInt());
+      retrievedEvent.setDate(snapshot.data()['date']);
     });
     return retrievedEvent;
   }
-
-  // void deleteCollisionEvent(CollisionEvent collisionEvent) {
-  //   collisionHistory
-  //       .where('sessionID', isEqualTo: collisionEvent.sessionID)
-  //       .get()
-  //       .then((snapshot) {
-  //     snapshot.docs.first.reference.delete();
-  //   });
-  // }
-
-  // void addCollisionEvent(CollisionEvent collisionEvent) {
-  //   collisionHistory
-  //       .add({
-  //         'coord_x': collisionEvent.collisionCoord_x.toString(),
-  //         'coord_y': collisionEvent.collisionCoord_y.toString(),
-  //         'date': collisionEvent.collisionDate
-  //       })
-  //       .then((value) => print("Collision event added"))
-  //       .catchError((error) => print("Failed to add collision event: $error"));
-  // }
-
-  // void updateCollisionEvent(CollisionEvent collisionEvent) {
-  //   collisionHistory
-  //       .doc(collisionEvent.sessionID.toString())
-  //       .update({
-  //         'coord_x': collisionEvent.collisionCoord_x.toString(),
-  //         'coord_y': collisionEvent.collisionCoord_y.toString(),
-  //         'date': collisionEvent.collisionDate.toString()
-  //       })
-  //       .then((value) => print("Collision event updated."))
-  //       .catchError((error) => print("Failed to update event: $error"));
-  // }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -122,8 +85,8 @@ class Database {
   Future<void> addPositionEvent(PositionEvent positionEvent) {
     return positionHistory
         .add({
-          'coord_x': positionEvent.positionCoord_x.toString(),
-          'coord_y': positionEvent.positionCoord_y.toString(),
+          'coord_x': positionEvent.pos_CoordX.toString(),
+          'coord_y': positionEvent.pos_CoordY.toString(),
           'dateTime': positionEvent.positionDateTime
         })
         .then((value) => print("Position event added"))

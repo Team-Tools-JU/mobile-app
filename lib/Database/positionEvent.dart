@@ -7,11 +7,12 @@ class PositionEvent {
   int length; //Lenght in mm
   String positionDateTime;
   int sessionID;
-  num positionCoord_x;
-  num positionCoord_y;
+  num pos_CoordX;
+  num pos_CoordY;
+  bool collision;
 
-  PositionEvent(num angle, int length, String positionDateTime,
-      num positionCoord_x, num positionCoord_y,
+  PositionEvent(num angle, int length, String positionDateTime, num pos_CoordX,
+      num pos_CoordY,
       {int sessionID}) {
     this.angle = angle;
     this.length = length;
@@ -19,6 +20,7 @@ class PositionEvent {
     this.sessionID = sessionID;
     this.calculateCoordX(angle, length);
     this.calculateCoordY(angle, length);
+    this.collision = collision;
   }
 
   void calculateCoordX(num angle, int length) {
@@ -30,11 +32,11 @@ class PositionEvent {
   }
 
   int getXCoord() {
-    return this.positionCoord_x;
+    return this.pos_CoordX;
   }
 
   int getYCoord() {
-    return this.positionCoord_y;
+    return this.pos_CoordY;
   }
 
   String getpositionDate() {
@@ -42,11 +44,11 @@ class PositionEvent {
   }
 
   void setXCoord(int newXCoord) {
-    this.positionCoord_x = newXCoord;
+    this.pos_CoordX = newXCoord;
   }
 
   void setYCoord(int newYCoord) {
-    this.positionCoord_y = newYCoord;
+    this.pos_CoordY = newYCoord;
   }
 
   void setDate(String newDate) {
