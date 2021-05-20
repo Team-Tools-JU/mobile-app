@@ -24,23 +24,14 @@ class SteeringViewModel extends BaseViewModel {
   IconData get _bluetoothIcon => iconData;
 
   void init() {
-    print("init steering view");
     bluetoothStatusText = 'initialised';
     isConnected = false;
-    // notifyListeners();
 
-    _bluetooth.isConnectedStream.stream.listen((state) {
+    _bluetooth.isConnectedStream.stream.listen((state) async {
       _bluetooth.isConnected = isConnected = state;
 
-      if (isConnected) {
-        // List<int> value = utf8.encode("AR");
-        // // print(value1);
-        // // List<int> value = [77, 70];
-        // await c.write([65, 82], withoutResponse: true);
-        // print(value);
-        // readChar = c;
-
-      } else {
+      if (!isConnected) {
+        await _bluetooth.disconnect();
         _navigationController.currentIndex = 0;
         Get.off(NavigationView());
       }
