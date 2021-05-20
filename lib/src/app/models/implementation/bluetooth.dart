@@ -29,7 +29,8 @@ class Bluetooth implements BluetoothInterface {
 
   @override
   Future<void> connect() async {
-    await selectedDevice.connect(autoConnect: false);
+    await selectedDevice.connect(
+        timeout: Duration(seconds: 10), autoConnect: false);
 
     List<BluetoothService> services = await selectedDevice.discoverServices();
     BluetoothService service = services
@@ -42,9 +43,13 @@ class Bluetooth implements BluetoothInterface {
         print(c.uuid);
         writeChar = c;
         readChar = c;
-        // await write("AR");
       }
     }
+  }
+
+  @override
+  Future<void> disconnect() async {
+    await selectedDevice.disconnect();
   }
 
   @override
@@ -75,7 +80,6 @@ class Bluetooth implements BluetoothInterface {
 
   @override
   Future<void> listen() async {
-    // await readChar.setNotifyValue(true);
     print(readChar.properties);
     readChar.value.listen((msg) {
       print("MESSAGE: $msg");

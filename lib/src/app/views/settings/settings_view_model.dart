@@ -1,13 +1,16 @@
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobile_app/src/app/models/implementation/bluetooth.dart';
+import 'package:mobile_app/src/app/models/implementation/navigation_controller.dart';
 import 'package:mobile_app/src/app/models/implementation/settings_controller.dart';
+import 'package:mobile_app/src/app/views/navigation/navigation_view.dart';
 import 'package:mobile_app/src/app/views/steering/steering_view.dart';
 import 'package:stacked/stacked.dart';
 
 class SettingsViewModel extends BaseViewModel {
   SettingsController _controller = GetIt.I<SettingsController>();
   Bluetooth _bluetooth = GetIt.I<Bluetooth>();
+  NavigationController _navigationController = GetIt.I<NavigationController>();
 
   late bool _simulationMode;
   late bool _manualSteering;
@@ -31,9 +34,14 @@ class SettingsViewModel extends BaseViewModel {
       //
     });
 
-    _bluetooth.isConnectedStream.stream.listen((state) {
+    _bluetooth.isConnectedStream.stream.listen((state) async {
       _bluetooth.isConnected = isConnected = state;
-      notifyListeners();
+
+      if (!isConnected) {
+        await _bluetooth.disconnect();
+        _navigationController.currentIndex = 0;
+        Get.off(NavigationView());
+      }
     });
   }
 

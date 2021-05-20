@@ -29,11 +29,7 @@ class StartViewModel extends IndexTrackingViewModel {
 
   String get _bluetoothStatusText => bluetoothStatusText;
 
-  StartViewModel() {
-    init();
-  }
-
-  void init() async {
+  Future<void> init() async {
     bluetoothStatusText = 'initialised';
 
     _bluetooth.isConnectedStream.stream.listen((state) {
@@ -71,12 +67,12 @@ class StartViewModel extends IndexTrackingViewModel {
     }
   }
 
-  void onScanResults(List<BluetoothDevice> devices) {
+  Future<void> onScanResults(List<BluetoothDevice> devices) async {
     BluetoothDevice device =
         devices.where((device) => device.id.id == DEVICE_ID).first;
 
     print("FOUND THE DEVICE");
-    connect(device);
+    await connect(device);
     notifyListeners();
 
     print('${device.name} ${device.id} found!');

@@ -15,6 +15,8 @@ abstract class BluetoothInterface {
 
   Future<void> connect();
 
+  Future<void> disconnect();
+
   Future<dynamic> write(String data);
 
   Future<void> listen();
