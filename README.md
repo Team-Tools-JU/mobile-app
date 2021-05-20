@@ -29,11 +29,14 @@ This function tries to connect to the specific device.
 ### showRequestDialog() : 
 This function brings up a dialog window if Bluetooth or location services is not enabled, prompting the user to enable these things for the app to fully function. Calls on  *requestPermission*
 
+### requestPermission() :
+This method request permissions from the user
+
 ### onPermissionGiven() : 
 This function checks if the user has the required permissions and if they have start scanning for devices, if not then open Bluetooth settings. 
 
 ### updateBluetoothStatusText() : 
-This function updates the Bluetooth status text when the user presses on the Bluetooth icon.  
+This function updates the Bluetooth status text when the user press the Bluetooth icon.  
 
 ### updateBluetoothSymbolText() : 
 This function switches the Bluetooth icon depending on the connection state to the mower. 
