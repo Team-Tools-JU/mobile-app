@@ -10,6 +10,7 @@ class StartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<StartViewModel>.reactive(
+      onModelReady: (model) async => model.init(),
       builder: (context, model, child) => Scaffold(
         body: Body(model),
       ),

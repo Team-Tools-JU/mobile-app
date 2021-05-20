@@ -43,7 +43,6 @@ class Bluetooth implements BluetoothInterface {
         print(c.uuid);
         writeChar = c;
         readChar = c;
-        // await write("AR");
       }
     }
   }
