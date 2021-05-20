@@ -1,6 +1,6 @@
 # **Software Design Description: App**
 
-### *Class diagram*: [link to class diagram!](https://drive.google.com/file/d/1bJgkpCA02XR1QgMH_F5UQLhQh8izsuSE/view?usp=sharing )
+[link to class diagram!](https://drive.google.com/file/d/1bJgkpCA02XR1QgMH_F5UQLhQh8izsuSE/view?usp=sharing )
 ## Design pattern:
 ### The app makes use of the Model View ViewModel (MVVM) design pattern. This makes it possible to abstract the view and thus reduces the amount of business logic required in the code behind it. It also makes it easier to test the ViewModel without any interaction from the view  
 
