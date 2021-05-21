@@ -1,7 +1,7 @@
 # **Software Design Description: App**
 
 [Link to class diagram](https://drive.google.com/file/d/1bJgkpCA02XR1QgMH_F5UQLhQh8izsuSE/view?usp=sharing )
-## Introduction:
+## Introduction
 The application is created using Flutter, which allows an application to work in Android as well as IOS. The app makes use of the Model View ViewModel (MVVM) design pattern. This makes it possible to abstract the view and thus reduces the amount of business logic required in the code behind it. It also makes it easier to test the ViewModel without any interaction from the view.  
 
 ![App Design Pattern](https://github.com/Team-Tools-JU/mobile-app/blob/main/Design%20pattern.png)
