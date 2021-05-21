@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobile_app/src/app/models/implementation/bluetooth.dart';
+import 'package:mobile_app/src/app/models/implementation/mower_commands.dart';
 import 'package:mobile_app/src/app/models/implementation/navigation_controller.dart';
 import 'package:mobile_app/src/app/models/implementation/settings_controller.dart';
 import 'package:mobile_app/src/app/views/navigation/navigation_view.dart';
@@ -14,6 +15,7 @@ class SettingsViewModel extends BaseViewModel {
 
   late bool _simulationMode;
   late bool _manualSteering;
+  late bool autoDriving;
   late bool isConnected;
   bool get simulationMode => _simulationMode;
   bool get manualSteering => _manualSteering;
@@ -21,6 +23,7 @@ class SettingsViewModel extends BaseViewModel {
   void init() {
     _simulationMode = false;
     _manualSteering = false;
+    autoDriving = false;
     isConnected = _bluetooth.isConnected;
 
     _controller.steeringEnabled.stream.listen((steering) {
@@ -47,6 +50,10 @@ class SettingsViewModel extends BaseViewModel {
 
   void activateSteering() {
     _controller.steeringEnabled.add(true);
+  }
+
+  void toggleAutoDrive() {
+    _bluetooth.write(autoDriving ? MOWER_AUTO_RUN : MOWER_IDLE);
   }
 
   @override
