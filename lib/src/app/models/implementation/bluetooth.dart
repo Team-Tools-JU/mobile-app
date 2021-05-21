@@ -27,24 +27,29 @@ class Bluetooth implements BluetoothInterface {
 
   bool isConnected = false;
 
+  late List<BluetoothService> _services;
+
   @override
   Future<void> connect() async {
     await selectedDevice.connect(
         timeout: Duration(seconds: 10), autoConnect: false);
 
     List<BluetoothService> services = await selectedDevice.discoverServices();
-    BluetoothService service = services
-        .where((service) => (service.uuid == Guid(SERVICE_UUID)))
-        .toList()[0];
 
-    // Test code for reading and writing that will be moved later
-    for (BluetoothCharacteristic c in service.characteristics) {
-      if (c.uuid == Guid(WRITE_CHAR_UUID)) {
-        print(c.uuid);
-        writeChar = c;
-        readChar = c;
-      }
-    }
+    BluetoothService readService = services
+        .where((service) => (service.uuid == Guid(READ_SERVICE_UUID)))
+        .first;
+
+    BluetoothService writeService = services
+        .where((service) => (service.uuid == Guid(WRITE_SERVICE_UUID)))
+        .first;
+
+    writeChar = writeService.characteristics
+        .where((c) => (c.uuid == Guid(WRITE_CHAR_UUID)))
+        .first;
+    readChar = readService.characteristics
+        .where((c) => (c.uuid == Guid(READ_CHAR_UUID)))
+        .first;
   }
 
   @override
@@ -86,4 +91,22 @@ class Bluetooth implements BluetoothInterface {
       reciever.add(utf8.decode(msg));
     });
   }
+
+  // Future<void> read() async {
+  //   for (BluetoothService _service in _services) {
+  //     for (BluetoothCharacteristic _c in _service.characteristics) {
+  //       if (_c.properties.read) {
+  //         while (true) {
+  //           await Future.delayed(
+  //               Duration(seconds: 1),
+  //               () async => {
+  //                     print("char uuid: ${_c.uuid}"),
+  //                     print("service uuid: ${_service.uuid}"),
+  //                     print(await _c.read()),
+  //                   });
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 }
