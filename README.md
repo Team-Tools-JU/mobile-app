@@ -1,12 +1,10 @@
 # **Software Design Description: App**
 
 [Link to class diagram](https://drive.google.com/file/d/1bJgkpCA02XR1QgMH_F5UQLhQh8izsuSE/view?usp=sharing )
-## Design pattern:
-### The app makes use of the Model View ViewModel (MVVM) design pattern. This makes it possible to abstract the view and thus reduces the amount of business logic required in the code behind it. It also makes it easier to test the ViewModel without any interaction from the view  
+## Introduction:
+### The application is created using Flutter, which allows an application to work in Android as well as IOS. The app makes use of the Model View ViewModel (MVVM) design pattern. This makes it possible to abstract the view and thus reduces the amount of business logic required in the code behind it. It also makes it easier to test the ViewModel without any interaction from the view.  
 
-## A1.1 The App shall establish a wireless connection with the Robot
-
-#### Bluetooth has been implemented as a communication protocol and therefore the following functions is needed to form a connection with the mower: 
+## Functionality
 
 ### onBluetoothConnect() :
 This function listens for the Bluetooth connection state and updates the isConnected variable 
@@ -41,9 +39,6 @@ This function updates the Bluetooth status text when the user press the Bluetoot
 ### updateBluetoothSymbolText() : 
 This function switches the Bluetooth icon depending on the connection state to the mower. 
 
-## A1.2 The App shall take user input and translate this to drive commands passed to the Robot
-#### To be able to let the user drive the mower in a smooth and good way these functions has been implemented: 
-
 ### send() : 
 This function sends driving commands to the mower, as following: 
 * MOWER_AUTO_RUN = "AR"
@@ -56,15 +51,23 @@ This function sends driving commands to the mower, as following:
 ### disableSteering() : 
 This function removes the steering view and pushes a new view to display for the user.  
 
-## A1.3: The App shall visualize sensor data from the collision avoidance sensor on the Mower
-
-#### To be able to visualize the path and collision events from the mower, the following functions are being used: 
-
 ### getSignalStrength() : 
 This function retrieves data from the mower, how close to an object it currently is and updates the signalStrength variable accordingly. This in turn will update the collision icon. 
 
 ### getPositions() :  
 This function retrieves vectors from the backend and transform these into coordinates, that will be displayed as a path on the view. 
+
+## A1.1 The App shall establish a wireless connection with the Robot
+
+### Bluetooth has been implemented as a communication protocol between the app and mower.  
+
+## A1.2 The App shall take user input and translate this to drive commands passed to the Robot
+
+### The app visualizes buttons for the user to press, that will steer the mower. This is done by calling the *send()* method describes previously, which will send data to the mower who will execute the commands.   
+
+## A1.3: The App shall visualize sensor data from the collision avoidance sensor on the Mower
+
+### The app recieves data from the mower, by calling *getSignalStrength()* and updates the view, which visualizes how close the mower is to an object and tells the user if a collision has occurred.   
 
 
 ## Getting Started
