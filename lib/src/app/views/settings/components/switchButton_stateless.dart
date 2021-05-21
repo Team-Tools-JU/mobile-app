@@ -80,6 +80,41 @@ class SwitchButtonStateless extends StatelessWidget {
               )
             ],
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.all(19.0),
+                child: Text(
+                  'Auto driving',
+                  style: TextStyle(fontSize: 25),
+                ),
+              ),
+              Container(
+                height: 40,
+                width: 125,
+                child: !model.isConnected
+                    ? Text(
+                        "Must be connected.",
+                        style: TextStyle(fontSize: 18),
+                      )
+                    : LiteRollingSwitch(
+                        value: model.autoDriving,
+                        textOn: 'ON',
+                        textOff: 'OFF',
+                        colorOn: Colors.greenAccent,
+                        colorOff: Colors.redAccent,
+                        iconOn: Icons.done,
+                        iconOff: Icons.power_settings_new,
+                        textSize: 18.0,
+                        onChanged: (bool isEnabled) {
+                          model.autoDriving = isEnabled ? true : false;
+                          model.toggleAutoDrive();
+                        },
+                      ),
+              )
+            ],
+          ),
         ],
       ),
     );
