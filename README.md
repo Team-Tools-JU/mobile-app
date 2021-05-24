@@ -8,11 +8,12 @@ The application is created using the cross-platform framework Flutter, which all
 
 
 
-## Models
+## Models 
 
-### Bluetooth :
+
+### Bluetooth
 This class handles all bluetooth functionality and implements the interface BluetoothInterface. 
-The class makes use of the package FlutterBlue https://pub.dev/packages/flutter_blue 
+The class makes use of the package [FlutterBlue](https://pub.dev/packages/flutter_blue) 
 
 #### FlutterBlue flutterBlue :
 An instance of the FlutterBlue class.
@@ -46,6 +47,24 @@ Encodes and writes the passed string using writeChar.
 
 #### Future<void> listen() async : 
 Listens for incoming messages using readChar.
+  
+  
+### NavigationController
+This very simple class is used to keep track of the current page selected in the navigation view.
+
+#### int currentIndex :
+The index corresponding to the current page.
+
+  
+### AndroidService
+This class handles all android-specific service implementations.
+  
+#### Future<void> openLocationSetting() async :
+Opens the location settings for the android device.
+
+#### Future<void> openBluetoothSetting() async :
+Opens the bluetooth settings for the android device.
+
   
 ## View Models
 
