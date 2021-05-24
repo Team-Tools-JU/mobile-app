@@ -66,10 +66,38 @@ Opens the location settings for the android device.
 Opens the bluetooth settings for the android device.
 
   
+### SettingsController
+This simple class keeps track of settings between different views.
+  
+#### StreamController<bool> steeringEnabled :
+A StreamController broadcasting when the current setting of manual steering is changed.
+  
 ## View Models
+  
+### HistoryViewModel
+  
+### NavigationViewModel
+  
+### SettingsViewModel
+  
+### StartViewModel
+
+
 
 ## Views
+  
+  
+### HistoryView
+This view displays previous mower session paths, including collision events.
 
+### NavigationView
+  
+### SettingsView
+
+### StartView
+ 
+### SteeringView
+  
 
 
 
