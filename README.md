@@ -2,11 +2,58 @@
 
 [Link to class diagram](https://drive.google.com/file/d/1bJgkpCA02XR1QgMH_F5UQLhQh8izsuSE/view?usp=sharing )
 ## Introduction
-The application is created using Flutter, which allows an application to work in Android as well as IOS. The app makes use of the Model View ViewModel (MVVM) design pattern. This makes it possible to abstract the view and thus reduces the amount of business logic required in the code behind it. It also makes it easier to test the ViewModel without any interaction from the view.  
+The application is created using the cross-platform framework Flutter, which allows an application to work in Android as well as IOS. Flutter uses the programming language dart, which is object-oriented and means that the app is modeled with classes. Furthermore, the app makes use of the Model View ViewModel (MVVM) design pattern. This makes it possible to abstract the view and thus reduces the amount of business logic required in the code behind it. It also makes it easier to test the ViewModel without any interaction from the view.  
 
 ![App Design Pattern](https://github.com/Team-Tools-JU/mobile-app/blob/main/Design%20pattern.png)
 
-## Functionality
+
+
+## Models
+
+### Bluetooth :
+This class handles all bluetooth functionality and implements the interface BluetoothInterface. 
+The class makes use of the package FlutterBlue https://pub.dev/packages/flutter_blue 
+
+#### FlutterBlue flutterBlue :
+An instance of the FlutterBlue class.
+
+#### BluetoothDevice selectedDevice :
+The bluetooth device selected for connection.
+
+#### BluetoothCharacteristic readChar :
+The bluetooth characteristic for reading.
+
+#### BluetoothCharacteristic writeChar :
+The bluetooth characteristic for writing.
+
+#### StreamController<String> reciever :
+A StreamController for broadcasting incoming message.
+
+#### bool isConnected :
+Returns a bool informing if a connection is established to the selected bluetooth device.
+
+#### Future<void> connect() async :
+Attempts a connection to the selected device.
+
+#### Future<List<BluetoothDevice>> scan(Duration duration) async :
+Scans for devices over the duration specified. Returns a Future containing the list of said devices.
+  
+#### Future<void> disconnect() async :
+Disconnects from the selected device.
+
+#### Future<void> write(String message) async :
+Encodes and writes the passed string using writeChar.
+
+#### Future<void> listen() async : 
+Listens for incoming messages using readChar.
+  
+## View Models
+
+## Views
+
+
+
+
 
 #### onBluetoothConnect() :
 This function listens for the Bluetooth connection state and updates the isConnected variable 
