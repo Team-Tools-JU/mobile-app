@@ -80,33 +80,17 @@ class Bluetooth implements BluetoothInterface {
 
   @override
   Future<void> write(String message) async {
+    print("writing $message");
     await writeChar.write(utf8.encode(message));
   }
 
   @override
   Future<void> listen() async {
     readChar.setNotifyValue(true);
-    readChar.value.listen((msg) {
-      print("MESSAGE: ${utf8.decode(msg)}");
-      reciever.add(utf8.decode(msg));
+    readChar.value.listen((message) {
+      print(message);
+      print("MESSAGE: ${ascii.decode(message)}");
+      reciever.add(ascii.decode(message));
     });
   }
-
-  // Future<void> read() async {
-  //   for (BluetoothService _service in _services) {
-  //     for (BluetoothCharacteristic _c in _service.characteristics) {
-  //       if (_c.properties.read) {
-  //         while (true) {
-  //           await Future.delayed(
-  //               Duration(seconds: 1),
-  //               () async => {
-  //                     print("char uuid: ${_c.uuid}"),
-  //                     print("service uuid: ${_service.uuid}"),
-  //                     print(await _c.read()),
-  //                   });
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 }
