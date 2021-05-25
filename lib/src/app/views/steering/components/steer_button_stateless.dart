@@ -49,11 +49,14 @@ class SteerButtonStateless extends StatelessWidget {
             height: 70.0,
             width: 110.0,
             child: GestureDetector(
-              onLongPressStart: (_) {
+              onTapDown: (_) {
                 model.send(MOWER_FORWARD);
               },
+              onTap: () {
+                model.stopMower();
+              },
               onLongPressEnd: (_) {
-                model.send(MOWER_IDLE);
+                model.stopMower();
               },
               child: Icon(FontAwesomeIcons.solidArrowAltCircleUp, size: 90.0),
             )),
@@ -64,11 +67,14 @@ class SteerButtonStateless extends StatelessWidget {
                 height: 70.0,
                 width: 110.0,
                 child: GestureDetector(
-                  onLongPressStart: (_) {
+                  onTapDown: (_) {
                     model.send(MOWER_LEFT);
                   },
+                  onTap: () {
+                    model.stopMower();
+                  },
                   onLongPressEnd: (_) {
-                    model.send(MOWER_IDLE);
+                    model.stopMower();
                   },
                   child: Icon(FontAwesomeIcons.solidArrowAltCircleLeft,
                       size: 90.0),
@@ -77,11 +83,14 @@ class SteerButtonStateless extends StatelessWidget {
                 height: 70.0,
                 width: 110.0,
                 child: GestureDetector(
-                  onLongPressStart: (_) {
+                  onTapDown: (_) {
                     model.send(MOWER_RIGHT);
                   },
+                  onTap: () {
+                    model.stopMower();
+                  },
                   onLongPressEnd: (_) {
-                    model.send(MOWER_IDLE);
+                    model.stopMower();
                   },
                   child: Icon(FontAwesomeIcons.solidArrowAltCircleRight,
                       size: 90.0),
@@ -92,11 +101,14 @@ class SteerButtonStateless extends StatelessWidget {
             height: 70.0,
             width: 110.0,
             child: GestureDetector(
-              onLongPressStart: (_) {
+              onTapDown: (_) {
                 model.send(MOWER_BACKWARD);
               },
+              onTap: () {
+                model.stopMower();
+              },
               onLongPressEnd: (_) {
-                model.send(MOWER_IDLE);
+                model.stopMower();
               },
               child: Icon(FontAwesomeIcons.solidArrowAltCircleDown, size: 90.0),
             )),
