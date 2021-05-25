@@ -11,7 +11,7 @@ While *figure 2* shows how the MVVM design pattern is structured in this project
 
 
 ![App Design Pattern](https://github.com/Team-Tools-JU/mobile-app/blob/main/Design-Pattern-mobileApp.PNG)
-Figure 2: Our implementation of MVVM design pattern
+Figure 2: The applications implementation of MVVM design pattern
 
 
 
