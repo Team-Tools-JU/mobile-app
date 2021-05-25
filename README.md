@@ -71,11 +71,8 @@ This simple class keeps track of settings between different views.
 #### StreamController<bool> steeringEnabled :
 A StreamController broadcasting when the current setting of manual steering is changed.
   
-
-
-
-## Views
   
+## Views
   
 ### HistoryView
 This view displays previous mower session paths, including collision events.
@@ -95,10 +92,12 @@ This view displays steering options for the user and a collision indicator.
 
 ## View Models
   
+  
 ### HistoryViewModel
 This viewModel handles the data recieved from the backend.
   
-  
+#### getPositions() :  
+This function retrieves vectors from the backend and transform these into coordinates, that will be displayed as a path on the view. 
   
   
 ### NavigationViewModel
@@ -116,6 +115,16 @@ This viewModel handles the manual steering and simulation mode values and change
   
 #### activateSteering() :
 This function activates the *steeringView*.
+  
+ 
+### SteeringViewModel () :
+This viewModel handles data from and to the mower in terms of collison data and driving commands.
+  
+#### getSignalStrength() : 
+This function retrieves data from the mower, how close to an object it currently is and updates the signalStrength variable accordingly. This in turn will update the collision icon. 
+  
+#### disableSteering() : 
+This function removes the steering view and pushes a new view to display for the user. 
   
 
 ### StartViewModel
@@ -152,34 +161,6 @@ This function sends data for the mower to interpret.
 This method listens for incoming messages from the mower 
 
 
-
-
-
-
-
-#### updateBluetoothStatusText() : 
-This function updates the Bluetooth status text when the user press the Bluetooth icon.  
-
-#### updateBluetoothSymbolText() : 
-This function switches the Bluetooth icon depending on the connection state to the mower. 
-
-#### send() : 
-This function sends driving commands to the mower, as following: 
-* MOWER_AUTO_RUN = "AR"
-* MOWER_IDLE = "AS"
-* MOWER_FORWARD = "MF"
-* MOWER_BACKWARD = "MB"
-* MOWER_LEFT = "ML"
-* MOWER_RIGHT = "MR"
-
-#### disableSteering() : 
-This function removes the steering view and pushes a new view to display for the user.  
-
-#### getSignalStrength() : 
-This function retrieves data from the mower, how close to an object it currently is and updates the signalStrength variable accordingly. This in turn will update the collision icon. 
-
-#### getPositions() :  
-This function retrieves vectors from the backend and transform these into coordinates, that will be displayed as a path on the view. 
 
 ## Requirements
 
