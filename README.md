@@ -106,6 +106,9 @@ This viewModel handles the data recieved from the backend.
 #### getPositions() :  
 This function retrieves vectors from the backend and transform these into coordinates, that will be displayed as a path on the view. 
   
+#### setSessionName() :
+This function updates the mower session.
+  
   
 ### NavigationViewModel
 This viewModel keeps track on the current view index and can therefore navigate to the right view.
@@ -116,12 +119,21 @@ This function updates the bluetooth status text for the *settingsView*.
 #### updateBluetoothSymbolText() :
 This function updates the bluetooth status icon for the *settingsView*.
   
+#### fetchIndex() :
+This function retrieves the view index from *NavigationController*.
+  
+#### onBluetoothConnect() :
+This function updates the bluetooth connect variable.
+  
   
 ### SettingsViewModel
 This viewModel handles the manual steering and simulation mode values and changes to steering view when needed.
   
 #### activateSteering() :
 This function activates the *steeringView*.
+  
+#### toggleAutoDrive() :
+This function toggles the auto driving for the mower.
   
  
 ### SteeringViewModel () :
@@ -133,40 +145,33 @@ This function retrieves data from the mower, how close to an object it currently
 #### disableSteering() : 
 This function removes the steering view and pushes a new view to display for the user. 
   
+#### stopMower() :
+This function stops the mower by sending specific command.
+  
 
 ### StartViewModel
 This viewModel handles the connection functionality to the mower.
   
-#### scan() : 
-This function scans for devices in the area and returns the devices. Calls on *onScanResults*
-
-#### onScanResults() : 
-This function finds the specific device and calls *connect*
-
 #### connect() : 
 This function tries to connect to the specific device. 
 
-#### showRequestDialog() : 
-This function brings up a dialog window if Bluetooth or location services is not enabled, prompting the user to enable these things for the app to fully function. Calls on  *requestPermission*
+#### onScanResults() : 
+This function finds the specific device and calls *connect*.
+  
+#### scan() : 
+This function scans for devices in the area and returns the devices. Calls on *onScanResults*.
   
 #### requestPermission() :
-This method request permissions from the user
+This method request permissions from the user.
+
+#### showRequestDialog() : 
+This function brings up a dialog window if Bluetooth or location services is not enabled, prompting the user to enable these things for the app to fully function. Calls on  *requestPermission*.
 
 #### onPermissionGiven() : 
 This function checks if the user has the required permissions and if they have start scanning for devices, if not then open Bluetooth settings. 
 
 #### updateBluetoothStatus() : 
 This function updates the bluetooth status text shown in the view.
-
-#### onBluetoothConnect() :
-This function listens for the Bluetooth connection state and updates the isConnected variable 
-
-#### write() :  
-This function sends data for the mower to interpret. 
-
-#### listen() : 
-This method listens for incoming messages from the mower 
-
 
 
 ## Requirements
