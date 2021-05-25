@@ -36,6 +36,8 @@ class SteeringViewModel extends BaseViewModel {
         Get.off(NavigationView());
       }
     });
+
+    _bluetooth.listen();
   }
 
   void send(String command) {
