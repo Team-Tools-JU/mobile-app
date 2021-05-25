@@ -7,7 +7,7 @@ The application is created using the cross-platform framework Flutter, which all
 Figure 1: MVVM design pattern
 
 
-While *figure 2* shows how the MVVM design pattern is structured in thsi project.
+While *figure 2* shows how the MVVM design pattern is structured in this project.
 
 
 ![App Design Pattern](https://github.com/Team-Tools-JU/mobile-app/blob/main/Design-Pattern-mobileApp.PNG)
