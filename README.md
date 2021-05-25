@@ -6,6 +6,10 @@ The application is created using the cross-platform framework Flutter, which all
 ![App Design Pattern](https://github.com/Team-Tools-JU/mobile-app/blob/main/Design%20pattern.png)
 Figure 1: MVVM design pattern
 
+
+
+
+
 ![App Design Pattern](https://github.com/Team-Tools-JU/mobile-app/blob/main/Design-Pattern-mobileApp.PNG)
 Figure 2: Our implementation of MVVM design pattern
 
