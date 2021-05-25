@@ -5,6 +5,7 @@
 The application is created using the cross-platform framework Flutter, which allows an application to work in Android as well as IOS. Flutter uses the programming language dart, which is object-oriented and means that the app is modeled with classes. Furthermore, the app makes use of the Model View ViewModel (MVVM) design pattern. This makes it possible to abstract the view and thus reduces the amount of business logic required in the code behind it. It also makes it easier to test the ViewModel without any interaction from the view.  
 
 ![App Design Pattern](https://github.com/Team-Tools-JU/mobile-app/blob/main/Design%20pattern.png)
+Figure 1: MVVM design pattern
 
 
 
