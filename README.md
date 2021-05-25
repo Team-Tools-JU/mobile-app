@@ -142,6 +142,9 @@ This viewModel handles data from and to the mower in terms of collison data and 
 #### getSignalStrength() : 
 This function retrieves data from the mower, how close to an object it currently is and updates the signalStrength variable accordingly. This in turn will update the collision icon. 
   
+#### send() :
+This function sends driving commands to the mower.
+  
 #### disableSteering() : 
 This function removes the steering view and pushes a new view to display for the user. 
   
