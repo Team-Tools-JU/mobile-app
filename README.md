@@ -55,7 +55,6 @@ This very simple class is used to keep track of the current page selected in the
 #### int currentIndex :
 The index corresponding to the current page.
 
-  
 ### AndroidService
 This class handles all android-specific service implementations.
   
@@ -72,15 +71,6 @@ This simple class keeps track of settings between different views.
 #### StreamController<bool> steeringEnabled :
 A StreamController broadcasting when the current setting of manual steering is changed.
   
-## View Models
-  
-### HistoryViewModel
-  
-### NavigationViewModel
-  
-### SettingsViewModel
-  
-### StartViewModel
 
 
 
@@ -91,26 +81,46 @@ A StreamController broadcasting when the current setting of manual steering is c
 This view displays previous mower session paths, including collision events.
 
 ### NavigationView
+This view navigates to the different views depending on the user interaction.
   
 ### SettingsView
+This view presents the user with the option to toggle manual steering and simulation mode.
 
 ### StartView
+This view is the first view the user interacts with, who tries to connect to the mower.  
  
 ### SteeringView
+This view displays steering options for the user and a collision indicator.  
+
+
+## View Models
+  
+### HistoryViewModel
+This viewModel handles the data recieved from the backend.
+  
+  
+  
+  
+### NavigationViewModel
+This viewModel keeps track on the current view index and can therefore navigate to the right view.
+  
+#### updateBluetoothStatusText() :
+This function updates the bluetooth status text for the *settingsView*.
+  
+#### updateBluetoothSymbolText() :
+This function updates the bluetooth status icon for the *settingsView*.
+  
+  
+### SettingsViewModel
+This viewModel handles the manual steering and simulation mode values and changes to steering view when needed.
+  
+#### activateSteering() :
+This function activates the *steeringView*.
   
 
-
-
-
-#### onBluetoothConnect() :
-This function listens for the Bluetooth connection state and updates the isConnected variable 
-
-#### write() :  
-This function sends data for the mower to interpret. 
-
-#### listen() : 
-This method listens for incoming messages from the mower 
-
+### StartViewModel
+This viewModel handles the connection functionality to the mower.
+  
 #### scan() : 
 This function scans for devices in the area and returns the devices. Calls on *onScanResults*
 
@@ -122,12 +132,30 @@ This function tries to connect to the specific device.
 
 #### showRequestDialog() : 
 This function brings up a dialog window if Bluetooth or location services is not enabled, prompting the user to enable these things for the app to fully function. Calls on  *requestPermission*
-
+  
 #### requestPermission() :
 This method request permissions from the user
 
 #### onPermissionGiven() : 
 This function checks if the user has the required permissions and if they have start scanning for devices, if not then open Bluetooth settings. 
+
+#### updateBluetoothStatus() : 
+This function updates the bluetooth status text shown in the view.
+
+#### onBluetoothConnect() :
+This function listens for the Bluetooth connection state and updates the isConnected variable 
+
+#### write() :  
+This function sends data for the mower to interpret. 
+
+#### listen() : 
+This method listens for incoming messages from the mower 
+
+
+
+
+
+
 
 #### updateBluetoothStatusText() : 
 This function updates the Bluetooth status text when the user press the Bluetooth icon.  
