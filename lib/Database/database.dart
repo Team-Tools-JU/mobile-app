@@ -33,19 +33,20 @@ class Database {
         'collisionPositionY': collisionPosition.pos_CoordY.toString(),
         'collisionSession': collisionPosition.positionDateTime.toString()
       });
-    }
+    } else
+      print("A collision has not occured in this position.");
   }
 
-  List<void> getAllCollisionEvents() {
-    List<void> collisions;
+  List<String> getAllCollisionEvents() {
+    List<String> collisions;
     dbRef.orderByKey().once().then((DataSnapshot snapshot) {
       collisions.add(snapshot.value.toString());
     });
     return collisions;
   }
 
-  void deleteCollisionEvent(String sessionIDToFind) {
-    dbRef.child(sessionIDToFind).remove();
+  void deleteCollisionEvent(String sessionID) {
+    dbRef.child(sessionID).remove();
   }
 }
 
