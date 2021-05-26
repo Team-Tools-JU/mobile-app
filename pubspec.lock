@@ -43,6 +43,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  cloud_firestore:
+    dependency: "direct main"
+    description:
+      name: cloud_firestore
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.6"
+  cloud_firestore_platform_interface:
+    dependency: transitive
+    description:
+      name: cloud_firestore_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.2"
+  cloud_firestore_web:
+    dependency: transitive
+    description:
+      name: cloud_firestore_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.6"
   collection:
     dependency: transitive
     description:
@@ -71,6 +92,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0"
+
   fixnum:
     dependency: transitive
     description:
@@ -78,6 +100,36 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+
+  firebase_core:
+    dependency: "direct main"
+    description:
+      name: firebase_core
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
+  firebase_core_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_core_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.0"
+  firebase_core_web:
+    dependency: transitive
+    description:
+      name: firebase_core_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
+  firebase_database:
+    dependency: "direct main"
+    description:
+      name: firebase_database
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.1.2"
+
   flutter:
     dependency: "direct main"
     description: flutter
@@ -114,6 +166,7 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+
   font_awesome_flutter:
     dependency: "direct main"
     description:
@@ -122,6 +175,9 @@ packages:
     source: hosted
     version: "9.0.0"
   functional_data:
+
+  get_it:
+
     dependency: transitive
     description:
       name: functional_data
@@ -140,8 +196,9 @@ packages:
     description:
       name: get_it
       url: "https://pub.dartlang.org"
-    source: hosted
+    source: hoste
     version: "6.1.1"
+
   http_parser:
     dependency: transitive
     description:
@@ -149,6 +206,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
+
   js:
     dependency: transitive
     description:
@@ -156,6 +214,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.3"
+
   location:
     dependency: "direct main"
     description:
@@ -177,6 +236,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
+
   matcher:
     dependency: transitive
     description:
@@ -205,6 +265,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
+
   pedantic:
     dependency: transitive
     description:
@@ -233,6 +294,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
+
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -240,6 +302,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+
   protobuf:
     dependency: transitive
     description:
@@ -247,6 +310,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+
   provider:
     dependency: transitive
     description:
