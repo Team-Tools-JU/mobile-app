@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobile_app/src/app/models/implementation/bluetooth.dart';
-import 'package:mobile_app/src/app/models/implementation/mower_commands.dart';
+import 'package:mobile_app/src/app/models/constants/mower_commands.dart';
 import 'package:mobile_app/src/app/models/implementation/navigation_controller.dart';
 import 'package:mobile_app/src/app/models/implementation/settings_controller.dart';
 import 'package:mobile_app/src/app/views/navigation/navigation_view.dart';

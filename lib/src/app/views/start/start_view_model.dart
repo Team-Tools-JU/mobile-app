@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile_app/src/app/models/implementation/bluetooth_constants.dart';
+import 'package:mobile_app/src/app/models/constants/bluetooth_constants.dart';
 import 'package:mobile_app/src/app/models/implementation/navigation_controller.dart';
 import 'package:mobile_app/src/app/views/navigation/navigation_view.dart';
 import 'package:stacked/stacked.dart';

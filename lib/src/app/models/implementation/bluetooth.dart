@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:mobile_app/src/app/models/interfaces/bluetooth.dart';
-import 'bluetooth_constants.dart';
+import '../constants/bluetooth_constants.dart';
 
 class Bluetooth implements BluetoothInterface {
   @override
