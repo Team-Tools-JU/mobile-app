@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/src/app/views/history/components/mower_path_stateless.dart';
-import 'package:mobile_app/src/app/views/history/history_view_model.dart';
+import 'package:mobile_app/src/app/view_models/history_view_model.dart';
 import 'package:stacked/stacked.dart';
 
 class HistoryView extends StatelessWidget {

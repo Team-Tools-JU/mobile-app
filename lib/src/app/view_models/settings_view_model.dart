@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
+import 'package:stacked/stacked.dart';
 import 'package:mobile_app/src/app/models/implementation/bluetooth.dart';
-import 'package:mobile_app/src/app/models/implementation/mower_commands.dart';
+import 'package:mobile_app/src/app/models/constants/mower_commands.dart';
 import 'package:mobile_app/src/app/models/implementation/navigation_controller.dart';
 import 'package:mobile_app/src/app/models/implementation/settings_controller.dart';
 import 'package:mobile_app/src/app/views/navigation/navigation_view.dart';
 import 'package:mobile_app/src/app/views/steering/steering_view.dart';
-import 'package:stacked/stacked.dart';
 
 class SettingsViewModel extends BaseViewModel {
   SettingsController _controller = GetIt.I<SettingsController>();
@@ -29,7 +29,7 @@ class SettingsViewModel extends BaseViewModel {
     _controller.steeringEnabled.stream.listen((steering) {
       _manualSteering = steering;
       if (steering) {
-        print("steering time!");
+        print("MANUAL STEERING MODE");
         notifyListeners();
         Future.delayed(
             Duration(seconds: 2), () => Get.off(() => SteeringView()));

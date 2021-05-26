@@ -1,11 +1,12 @@
 import 'package:get_it/get_it.dart';
+import 'package:mobile_app/src/app/models/constants/text_constants.dart';
 import 'package:mobile_app/src/app/models/implementation/bluetooth.dart';
 import 'package:mobile_app/src/app/models/implementation/navigation_controller.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter/material.dart';
 
 class NavigationViewModel extends IndexTrackingViewModel {
-  String bluetoothStatusText = 'default';
+  String bluetoothStatusText = BT_DEFAULT;
   bool isConnected = false;
   IconData iconData = Icons.bluetooth;
   Bluetooth _bluetooth = GetIt.I<Bluetooth>();
@@ -26,9 +27,9 @@ class NavigationViewModel extends IndexTrackingViewModel {
 
   String updateBluetoothStatusText() {
     if (isConnected) {
-      bluetoothStatusText = 'Connected!';
+      bluetoothStatusText = BT_CONNECTED;
     } else {
-      bluetoothStatusText = 'Not connected!';
+      bluetoothStatusText = BT_DISCONNECTED;
     }
     return _bluetoothStatusText;
   }

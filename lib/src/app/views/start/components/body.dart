@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../start_view_model.dart';
+import '../../../view_models/start_view_model.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Body extends StatelessWidget {

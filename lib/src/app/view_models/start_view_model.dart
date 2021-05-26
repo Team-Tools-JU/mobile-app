@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobile_app/src/app/models/implementation/bluetooth_constants.dart';
+import 'package:mobile_app/src/app/models/constants/bluetooth_constants.dart';
+import 'package:mobile_app/src/app/models/constants/text_constants.dart';
 import 'package:mobile_app/src/app/models/implementation/navigation_controller.dart';
 import 'package:mobile_app/src/app/views/navigation/navigation_view.dart';
-import 'package:mobile_app/src/app/views/navigation/navigation_view_model.dart';
-import 'package:mobile_app/src/app/views/settings/settings_view.dart';
 import 'package:stacked/stacked.dart';
 import 'dart:async';
 import 'dart:io' show Platform;
@@ -20,17 +19,15 @@ class StartViewModel extends IndexTrackingViewModel {
   L.Location _location = new L.Location();
   AndroidService _android = GetIt.I<AndroidService>();
   NavigationController _controller = GetIt.I<NavigationController>();
-
-  StreamController<bool> servicesEnabled = StreamController<bool>.broadcast();
   StreamController<bool> permissionsGiven = StreamController<bool>.broadcast();
 
-  String bluetoothStatusText = 'default';
+  String bluetoothStatusText = BT_DEFAULT;
   bool isConnected = false;
 
   String get _bluetoothStatusText => bluetoothStatusText;
 
   Future<void> init() async {
-    bluetoothStatusText = 'initialised';
+    bluetoothStatusText = BT_INIT;
 
     _bluetooth.isConnectedStream.stream.listen((state) {
       _bluetooth.isConnected = isConnected = state;
@@ -62,6 +59,7 @@ class StartViewModel extends IndexTrackingViewModel {
           break;
       }
     });
+
     if (!isConnected) {
       await requestPermissions();
     }
@@ -79,15 +77,11 @@ class StartViewModel extends IndexTrackingViewModel {
   }
 
   void showRequestDialog() {
-    final String title = "Required";
-    final String msg =
-        "Bluetooth and location services are required for the app to function.";
-    final String btnText = "Try again";
     Get.rawSnackbar(
-        title: title,
-        message: msg,
+        title: DIALOG_TITLE,
+        message: DIALOG_MSG,
         mainButton: TextButton(
-          child: Text(btnText),
+          child: Text(DIALOG_BTN),
           onPressed: () {
             Get.back();
             requestPermissions();
@@ -126,9 +120,8 @@ class StartViewModel extends IndexTrackingViewModel {
       notifyListeners();
       return true;
     } catch (e) {
-      print("bluetooth not ready or enabled, or location not enabled");
+      print("Bluetooth not ready or enabled, or location not enabled");
       print(e);
-      // TODO: "Notify view of failed scan"
       return false;
     }
   }
@@ -138,21 +131,20 @@ class StartViewModel extends IndexTrackingViewModel {
     try {
       await _bluetooth.connect();
       _bluetooth.isConnectedStream.add(true);
-      print('connected to address: ${device.id} name: ${device.name}');
-      // notifyListeners();
+      print('Connected to address: ${device.id} name: ${device.name}');
       _controller.currentIndex = 1;
       Future.delayed(Duration(seconds: 2), () => {Get.off(NavigationView())});
     } catch (e) {
       print(e);
-      print('connection failed to address: ${device.id} name: ${device.name}');
+      print('Connection failed to address: ${device.id} name: ${device.name}');
     }
   }
 
   String updateBluetoothStatus() {
     if (isConnected) {
-      bluetoothStatusText = 'Connected!';
+      bluetoothStatusText = BT_CONNECTED;
     } else {
-      bluetoothStatusText = 'Not connected!';
+      bluetoothStatusText = BT_DISCONNECTED;
     }
     notifyListeners();
     return _bluetoothStatusText;

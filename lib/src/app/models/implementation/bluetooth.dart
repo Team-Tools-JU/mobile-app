@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:mobile_app/src/app/models/interfaces/bluetooth.dart';
-import 'bluetooth_constants.dart';
+import '../constants/bluetooth_constants.dart';
 
 class Bluetooth implements BluetoothInterface {
   @override
@@ -26,8 +26,6 @@ class Bluetooth implements BluetoothInterface {
   bool _isScanning = false;
 
   bool isConnected = false;
-
-  late List<BluetoothService> _services;
 
   @override
   Future<void> connect() async {
@@ -88,7 +86,6 @@ class Bluetooth implements BluetoothInterface {
   Future<void> listen() async {
     readChar.setNotifyValue(true);
     readChar.value.listen((message) {
-      print(message);
       print("MESSAGE: ${ascii.decode(message)}");
       reciever.add(ascii.decode(message));
     });
