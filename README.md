@@ -9,7 +9,7 @@ The application is created using the cross-platform framework Flutter, which all
 
 
 
-This makes it possible to abstract the view and thus reduces the amount of business logic required in the code behind it. It also makes it easier to test the ViewModel without any interaction from the view. *Figure 2* shows how the MVVM design pattern is structured in this project.  
+This makes it possible to abstract the view and thus reduces the amount of business logic required in the code behind it. It also makes it easier to test the ViewModel without any interaction from the view. *Figure 2* shows how the MVVM design pattern is structured in this project. With the names and details on which views are making use of the navigation view.
 
 
 ![App Design Pattern](https://github.com/Team-Tools-JU/mobile-app/blob/main/Design-Pattern-mobileApp.PNG)
