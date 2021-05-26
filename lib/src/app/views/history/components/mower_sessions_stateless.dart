@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/src/app/models/constants/text_constants.dart';
 import '../../../view_models/history_view_model.dart';
 
 class MowerSessionsStateless extends StatelessWidget {
@@ -29,10 +30,10 @@ class MowerSessionsStateless extends StatelessWidget {
             },
             // TODO: Retrieve the sessions from backend and add to list
             items: <String>[
-              'Session one',
-              'Session two',
-              'Session three',
-              'Session four'
+              SESSION_1_LABEL,
+              SESSION_2_LABEL,
+              SESSION_3_LABEL,
+              SESSION_4_LABEL
             ].map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,

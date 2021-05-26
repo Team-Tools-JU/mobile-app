@@ -1,3 +1,4 @@
+import 'package:mobile_app/src/app/models/constants/text_constants.dart';
 import 'package:stacked/stacked.dart';
 
 class HistoryViewModel extends BaseViewModel {
@@ -5,7 +6,7 @@ class HistoryViewModel extends BaseViewModel {
   String get firstSession => _firstSession;
 
   void init() {
-    _firstSession = 'Session one';
+    _firstSession = SESSION_1_LABEL;
   }
 
   setSessionName(String newSession) {

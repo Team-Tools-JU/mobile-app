@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/src/app/models/constants/mower_commands.dart';
+import 'package:mobile_app/src/app/models/constants/text_constants.dart';
 import 'package:mobile_app/src/app/views/steering/components/signal_strength_wrapper.dart';
 import 'package:mobile_app/src/app/views/steering/components/steer_button.dart';
 import 'package:mobile_app/src/app/view_models/steering_view_model.dart';
@@ -26,7 +27,7 @@ class SteeringDashboard extends StatelessWidget {
           margin: EdgeInsets.all(20),
           height: 100.0,
           width: 150.0,
-          child: Text('Collision detection'),
+          child: Text(COLLISION_LABEL),
         ),
         SteerButton(
             model, MOWER_FORWARD, FontAwesomeIcons.solidArrowAltCircleUp),

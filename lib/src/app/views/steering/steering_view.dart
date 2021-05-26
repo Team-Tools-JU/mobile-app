@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/src/app/models/constants/text_constants.dart';
 import 'package:mobile_app/src/app/views/steering/components/steering_dashboard.dart';
 import 'package:mobile_app/src/app/view_models/steering_view_model.dart';
 import 'package:stacked/stacked.dart';
@@ -16,12 +17,12 @@ class SteeringView extends StatelessWidget {
           leading: BackButton(
             onPressed: () => {model.disableSteering()},
           ),
-          title: Text("Steering"),
+          title: Text(STEERING_LABEL),
           actions: <Widget>[
             IconButton(
               icon: Icon(model.updateBluetoothSymbolText()),
               color: Colors.black,
-              tooltip: 'Bluetooth status',
+              tooltip: BT_TOOLTIP,
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(model.updateBluetoothStatusText())));

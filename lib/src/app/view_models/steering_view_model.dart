@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mobile_app/src/app/models/constants/text_constants.dart';
 import 'package:mobile_app/src/app/models/implementation/bluetooth.dart';
 import 'package:mobile_app/src/app/models/constants/mower_commands.dart';
 import 'package:mobile_app/src/app/models/implementation/navigation_controller.dart';
@@ -13,7 +14,7 @@ class SteeringViewModel extends BaseViewModel {
   NavigationController _navigationController = GetIt.I<NavigationController>();
   Bluetooth _bluetooth = GetIt.I<Bluetooth>();
 
-  String bluetoothStatusText = 'default';
+  String bluetoothStatusText = BT_DEFAULT;
   bool isConnected = false;
   IconData iconData = Icons.bluetooth;
   int _signalStrength = 0;
@@ -24,7 +25,7 @@ class SteeringViewModel extends BaseViewModel {
   IconData get _bluetoothIcon => iconData;
 
   void init() {
-    bluetoothStatusText = 'initialised';
+    bluetoothStatusText = BT_INIT;
     isConnected = false;
 
     _bluetooth.isConnectedStream.stream.listen((state) async {
@@ -39,7 +40,7 @@ class SteeringViewModel extends BaseViewModel {
 
     _bluetooth.listen();
     _bluetooth.reciever.stream.listen((msg) {
-      print("message from reciever: $msg");
+      print("Message from reciever: $msg");
 
       int distance = int.tryParse(msg) ?? 0;
       setSignalStrength(distance);
@@ -65,7 +66,7 @@ class SteeringViewModel extends BaseViewModel {
         break;
     }
 
-    print("strength $signalStrength");
+    print("Strength: $signalStrength");
     signal();
     notifyListeners();
   }
@@ -84,9 +85,9 @@ class SteeringViewModel extends BaseViewModel {
 
   String updateBluetoothStatusText() {
     if (isConnected) {
-      bluetoothStatusText = 'Connected!';
+      bluetoothStatusText = BT_CONNECTED;
     } else {
-      bluetoothStatusText = 'Not connected!';
+      bluetoothStatusText = BT_DISCONNECTED;
     }
     notifyListeners();
     return _bluetoothStatusText;

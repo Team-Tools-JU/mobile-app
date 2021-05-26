@@ -12,3 +12,10 @@ const APP_LABEL = "Mower-app";
 const START_LABEL = "Start";
 const SETTINGS_LABEL = "Settings";
 const HISTORY_LABEL = "History";
+const STEERING_LABEL = "Steering";
+const COLLISION_LABEL = "Collision detection";
+
+const SESSION_1_LABEL = "Session one";
+const SESSION_2_LABEL = "Session two";
+const SESSION_3_LABEL = "Session three";
+const SESSION_4_LABEL = "Session four";

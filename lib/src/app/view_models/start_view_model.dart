@@ -120,7 +120,7 @@ class StartViewModel extends IndexTrackingViewModel {
       notifyListeners();
       return true;
     } catch (e) {
-      print("bluetooth not ready or enabled, or location not enabled");
+      print("Bluetooth not ready or enabled, or location not enabled");
       print(e);
       return false;
     }
@@ -131,12 +131,12 @@ class StartViewModel extends IndexTrackingViewModel {
     try {
       await _bluetooth.connect();
       _bluetooth.isConnectedStream.add(true);
-      print('connected to address: ${device.id} name: ${device.name}');
+      print('Connected to address: ${device.id} name: ${device.name}');
       _controller.currentIndex = 1;
       Future.delayed(Duration(seconds: 2), () => {Get.off(NavigationView())});
     } catch (e) {
       print(e);
-      print('connection failed to address: ${device.id} name: ${device.name}');
+      print('Connection failed to address: ${device.id} name: ${device.name}');
     }
   }
 
