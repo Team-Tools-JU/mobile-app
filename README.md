@@ -18,7 +18,7 @@ This makes it possible to abstract the view and thus reduces the amount of busin
 
 ## Dependencies 
 
-
+[Stacked](https://pub.dev/packages/stacked)
 
 
 ## Models 
