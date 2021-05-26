@@ -17,8 +17,18 @@ This makes it possible to abstract the view and thus reduces the amount of busin
 ###### Figure 2: *The applications implementation of MVVM design pattern*
 
 ## Dependencies 
+This application is using multiple dependencies that makes the applicaton work
 
-[Stacked](https://pub.dev/packages/stacked)
+* [Stacked](https://pub.dev/packages/stacked)
+* [Material](https://pub.dev/packages/material)
+* [FlutterBlue](https://pub.dev/packages/flutter_blue)
+* [Get it](https://pub.dev/packages/get_it)
+* [Lite rolling switch](https://pub.dev/packages/lite_rolling_switch)
+* [Signal strength indicator](https://pub.dev/packages/signal_strength_indicator)
+* [Font Awsome](https://pub.dev/packages/font_awesome_flutter)
+* [Math](https://api.flutter.dev/flutter/dart-math/dart-math-library.html)
+* [Android Intent](https://pub.dev/packages/android_intent)
+
 
 
 ## Models 
