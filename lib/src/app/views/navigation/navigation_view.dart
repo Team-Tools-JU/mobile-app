@@ -3,10 +3,7 @@ import 'package:mobile_app/src/app/views/history/history_view.dart';
 import 'package:mobile_app/src/app/view_models/navigation_view_model.dart';
 import 'package:mobile_app/src/app/views/settings/settings_view.dart';
 import 'package:mobile_app/src/app/views/start/start_view.dart';
-
 import 'package:stacked/stacked.dart';
-
-import '../start/start_view.dart';
 
 class NavigationView extends StatelessWidget {
   const NavigationView({Key? key}) : super(key: key);

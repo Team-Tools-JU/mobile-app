@@ -18,8 +18,6 @@ class StartViewModel extends IndexTrackingViewModel {
   L.Location _location = new L.Location();
   AndroidService _android = GetIt.I<AndroidService>();
   NavigationController _controller = GetIt.I<NavigationController>();
-
-  StreamController<bool> servicesEnabled = StreamController<bool>.broadcast();
   StreamController<bool> permissionsGiven = StreamController<bool>.broadcast();
 
   String bluetoothStatusText = 'default';
