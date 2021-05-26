@@ -16,7 +16,7 @@ class SteeringViewModel extends BaseViewModel {
   bool isConnected = false;
   IconData iconData = Icons.bluetooth;
 
-  double _signalStrength = 1.0;
+  int _signalStrength = 3;
 
   get signalStrength => _signalStrength;
 
@@ -38,6 +38,43 @@ class SteeringViewModel extends BaseViewModel {
     });
 
     _bluetooth.listen();
+    _bluetooth.reciever.stream.listen((msg) {
+      print("message from reciever: $msg");
+      var distance = int.tryParse(msg);
+      if (distance == null) {
+        print("string is null");
+      } else {
+        setSignalStrength(distance);
+      }
+    });
+  }
+
+  void setSignalStrength(int distance) {
+    switch (distance) {
+      case 1:
+        _signalStrength = 4;
+        break;
+      case 2:
+        _signalStrength = 3;
+        break;
+      case 3:
+        _signalStrength = 2;
+        break;
+      case 4:
+        _signalStrength = 1;
+        break;
+      default:
+        _signalStrength = 0;
+        break;
+    }
+
+    print("strength $signalStrength");
+    signal();
+    notifyListeners();
+  }
+
+  int signal() {
+    return _signalStrength;
   }
 
   void send(String command) {
