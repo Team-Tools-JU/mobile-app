@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/src/app/views/start/start_view_model.dart';
+import 'package:mobile_app/src/app/view_models/start_view_model.dart';
 import 'package:mobile_app/src/app/views/start/components/body.dart';
 import 'package:stacked/stacked.dart';
 

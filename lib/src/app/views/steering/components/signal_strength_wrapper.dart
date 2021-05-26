@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:math';
 import 'package:mobile_app/src/app/views/steering/components/signal_strength_indicator/signal_strength_indicator.dart';
-import 'package:mobile_app/src/app/views/steering/steering_view_model.dart';
+import 'package:mobile_app/src/app/view_models/steering_view_model.dart';
 
 class SignalStrengthWrapper extends StatelessWidget {
   final SteeringViewModel model;

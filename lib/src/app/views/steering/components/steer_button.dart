@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/src/app/views/steering/steering_view_model.dart';
+import 'package:mobile_app/src/app/view_models/steering_view_model.dart';
 
 class SteerButton extends StatelessWidget {
   final SteeringViewModel model;

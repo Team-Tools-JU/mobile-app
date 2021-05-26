@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../settings_view_model.dart';
+import '../../../view_models/settings_view_model.dart';
 import 'lite_rolling_switch.dart';
 
 class SwitchButtonStateless extends StatelessWidget {
