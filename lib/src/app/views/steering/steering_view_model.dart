@@ -11,12 +11,11 @@ import 'package:stacked/stacked.dart';
 class SteeringViewModel extends BaseViewModel {
   SettingsController _settingsController = GetIt.I<SettingsController>();
   NavigationController _navigationController = GetIt.I<NavigationController>();
-
   Bluetooth _bluetooth = GetIt.I<Bluetooth>();
+
   String bluetoothStatusText = 'default';
   bool isConnected = false;
   IconData iconData = Icons.bluetooth;
-
   int _signalStrength = 0;
 
   get signalStrength => _signalStrength;
@@ -41,12 +40,9 @@ class SteeringViewModel extends BaseViewModel {
     _bluetooth.listen();
     _bluetooth.reciever.stream.listen((msg) {
       print("message from reciever: $msg");
-      var distance = int.tryParse(msg);
-      if (distance == null) {
-        print("string is null");
-      } else {
-        setSignalStrength(distance);
-      }
+
+      int distance = int.tryParse(msg) ?? 0;
+      setSignalStrength(distance);
     });
   }
 
