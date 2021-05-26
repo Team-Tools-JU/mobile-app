@@ -27,8 +27,6 @@ class Bluetooth implements BluetoothInterface {
 
   bool isConnected = false;
 
-  late List<BluetoothService> _services;
-
   @override
   Future<void> connect() async {
     await selectedDevice.connect(
