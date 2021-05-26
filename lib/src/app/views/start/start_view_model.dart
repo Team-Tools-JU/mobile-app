@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:mobile_app/src/app/models/implementation/bluetooth_constants.dart';
 import 'package:mobile_app/src/app/models/implementation/navigation_controller.dart';
 import 'package:mobile_app/src/app/views/navigation/navigation_view.dart';
-import 'package:mobile_app/src/app/views/navigation/navigation_view_model.dart';
-import 'package:mobile_app/src/app/views/settings/settings_view.dart';
 import 'package:stacked/stacked.dart';
 import 'dart:async';
 import 'dart:io' show Platform;
@@ -139,7 +137,6 @@ class StartViewModel extends IndexTrackingViewModel {
       await _bluetooth.connect();
       _bluetooth.isConnectedStream.add(true);
       print('connected to address: ${device.id} name: ${device.name}');
-      // notifyListeners();
       _controller.currentIndex = 1;
       Future.delayed(Duration(seconds: 2), () => {Get.off(NavigationView())});
     } catch (e) {

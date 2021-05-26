@@ -86,7 +86,6 @@ class Bluetooth implements BluetoothInterface {
   Future<void> listen() async {
     readChar.setNotifyValue(true);
     readChar.value.listen((message) {
-      print(message);
       print("MESSAGE: ${ascii.decode(message)}");
       reciever.add(ascii.decode(message));
     });
