@@ -21,13 +21,13 @@ class StartViewModel extends IndexTrackingViewModel {
   NavigationController _controller = GetIt.I<NavigationController>();
   StreamController<bool> permissionsGiven = StreamController<bool>.broadcast();
 
-  String bluetoothStatusText = 'default';
+  String bluetoothStatusText = BT_DEFAULT;
   bool isConnected = false;
 
   String get _bluetoothStatusText => bluetoothStatusText;
 
   Future<void> init() async {
-    bluetoothStatusText = 'initialised';
+    bluetoothStatusText = BT_INIT;
 
     _bluetooth.isConnectedStream.stream.listen((state) {
       _bluetooth.isConnected = isConnected = state;

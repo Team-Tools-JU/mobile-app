@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/src/app/models/constants/text_constants.dart';
 import 'package:mobile_app/src/app/views/history/history_view.dart';
 import 'package:mobile_app/src/app/view_models/navigation_view_model.dart';
 import 'package:mobile_app/src/app/views/settings/settings_view.dart';
@@ -20,7 +21,7 @@ class NavigationView extends StatelessWidget {
             IconButton(
               icon: Icon(model.updateBluetoothSymbolText()),
               color: Colors.black,
-              tooltip: 'Bluetooth status',
+              tooltip: BT_TOOLTIP,
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(model.updateBluetoothStatusText())));
@@ -33,15 +34,15 @@ class NavigationView extends StatelessWidget {
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              label: 'Start',
+              label: START_LABEL,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings),
-              label: 'Settings',
+              label: SETTINGS_LABEL,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.history),
-              label: 'History',
+              label: HISTORY_LABEL,
             ),
           ],
           type: BottomNavigationBarType.shifting,
@@ -60,11 +61,11 @@ class NavigationView extends StatelessWidget {
   String viewTitle(int index) {
     switch (index) {
       case 0:
-        return 'Mower-app';
+        return APP_LABEL;
       case 1:
-        return 'Settings';
+        return SETTINGS_LABEL;
       case 2:
-        return 'History';
+        return HISTORY_LABEL;
       default:
         return '';
     }
