@@ -5,14 +5,14 @@ import 'package:mobile_app/src/app/views/steering/components/steer_button.dart';
 import 'package:mobile_app/src/app/views/steering/steering_view_model.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SteerButtonStateless extends StatelessWidget {
+class SteeringDashboard extends StatelessWidget {
   final SteeringViewModel model;
   static const int greenBar = 0;
   static const int yellowBar = 1;
   static const int orangeBar = 2;
   static const int redBar = 3;
 
-  const SteerButtonStateless(this.model, {Key? key}) : super(key: key);
+  const SteeringDashboard(this.model, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
