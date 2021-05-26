@@ -16,6 +16,9 @@ This makes it possible to abstract the view and thus reduces the amount of busin
 
 ###### Figure 2: *The applications implementation of MVVM design pattern*
 
+## Dependencies 
+
+
 
 
 ## Models 
