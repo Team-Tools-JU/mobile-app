@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_app/src/app/models/constants/bluetooth_constants.dart';
+import 'package:mobile_app/src/app/models/constants/text_constants.dart';
 import 'package:mobile_app/src/app/models/implementation/navigation_controller.dart';
 import 'package:mobile_app/src/app/views/navigation/navigation_view.dart';
 import 'package:stacked/stacked.dart';
@@ -58,6 +59,7 @@ class StartViewModel extends IndexTrackingViewModel {
           break;
       }
     });
+
     if (!isConnected) {
       await requestPermissions();
     }
@@ -75,15 +77,11 @@ class StartViewModel extends IndexTrackingViewModel {
   }
 
   void showRequestDialog() {
-    final String title = "Required";
-    final String msg =
-        "Bluetooth and location services are required for the app to function.";
-    final String btnText = "Try again";
     Get.rawSnackbar(
-        title: title,
-        message: msg,
+        title: DIALOG_TITLE,
+        message: DIALOG_MSG,
         mainButton: TextButton(
-          child: Text(btnText),
+          child: Text(DIALOG_BTN),
           onPressed: () {
             Get.back();
             requestPermissions();
@@ -124,7 +122,6 @@ class StartViewModel extends IndexTrackingViewModel {
     } catch (e) {
       print("bluetooth not ready or enabled, or location not enabled");
       print(e);
-      // TODO: "Notify view of failed scan"
       return false;
     }
   }
@@ -145,9 +142,9 @@ class StartViewModel extends IndexTrackingViewModel {
 
   String updateBluetoothStatus() {
     if (isConnected) {
-      bluetoothStatusText = 'Connected!';
+      bluetoothStatusText = BT_CONNECTED;
     } else {
-      bluetoothStatusText = 'Not connected!';
+      bluetoothStatusText = BT_DISCONNECTED;
     }
     notifyListeners();
     return _bluetoothStatusText;
