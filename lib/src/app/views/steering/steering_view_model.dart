@@ -17,7 +17,7 @@ class SteeringViewModel extends BaseViewModel {
   bool isConnected = false;
   IconData iconData = Icons.bluetooth;
 
-  int _signalStrength = 3;
+  int _signalStrength = 0;
 
   get signalStrength => _signalStrength;
 
