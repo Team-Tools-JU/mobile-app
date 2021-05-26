@@ -33,7 +33,7 @@ dependencies:
   # Firbase Core 
   firebase_core: ^1.0.4
 
-  # Firebase firestore
+  # Firebase firestore (Not used)
   cloud_firestore: ^1.0.6
 
   # Firebase realtime database 
