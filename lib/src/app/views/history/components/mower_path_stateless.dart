@@ -16,7 +16,7 @@ class MowerPathStateless extends StatelessWidget {
           padding: EdgeInsets.all(200.0),
           child: Container(
             child: CustomPaint(
-              painter: PathPainter(),
+              painter: PathPainter(model),
             ),
           ),
         ),

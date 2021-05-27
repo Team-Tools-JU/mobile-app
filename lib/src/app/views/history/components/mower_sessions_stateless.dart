@@ -17,7 +17,7 @@ class MowerSessionsStateless extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0), border: Border.all()),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
-            value: model.firstSession,
+            value: model.currentSession,
             icon: Icon(Icons.arrow_drop_down),
             iconSize: 35,
             elevation: 16,

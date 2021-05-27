@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "572582303921",
+    "firebase_url": "https://teamtools-c9f38-default-rtdb.firebaseio.com",
+    "project_id": "teamtools-c9f38",
+    "storage_bucket": "teamtools-c9f38.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:572582303921:android:dad5e81db5fb890e9aea90",
+        "android_client_info": {
+          "package_name": "com.example.mobile_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "572582303921-g9hftt5ujnlpu0v65cdh0b90ep0bkpkc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1QA74fhydZ3qGRRQrFh8AGB5J3j9KZ-c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "572582303921-g9hftt5ujnlpu0v65cdh0b90ep0bkpkc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "572582303921-0te54jvg4pq3qvboeiaoouc98sdrn1j3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mobileApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

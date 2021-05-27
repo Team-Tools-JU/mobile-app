@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/database/position_event.dart';
 import 'dart:math';
 
+import 'package:mobile_app/src/app/view_models/history_view_model.dart';
+
 class PathPainter extends CustomPainter {
-  late List<PositionEvent> positionEvents;
+  //final List<PositionEvent> positionEvents;
+  final HistoryViewModel model;
+  const PathPainter(this.model);
 
 /*
   set positions(positions) {
@@ -15,8 +20,7 @@ class PathPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     //these 2 lines should be removed when paint is created with real data
-    int sessionID = 1;
-    positionEvents = getPositions(sessionID);
+    List<PositionEvent> positionEvents = model.getCurrentSession();
 
     Paint collisionPaint = Paint()
       ..color = Colors.red
@@ -30,14 +34,12 @@ class PathPainter extends CustomPainter {
     Path path = Path();
 
     PositionEvent origin = positionEvents[0];
-    path.moveTo(origin.positionCoord_x, origin.positionCoord_y);
+    path.moveTo(origin.pos_CoordX, origin.pos_CoordY);
     for (PositionEvent position in positionEvents) {
-      path.lineTo(position.positionCoord_x, position.positionCoord_y);
+      path.lineTo(position.pos_CoordX, position.pos_CoordY);
 
-      if (position.collision) {
-        canvas.drawCircle(
-            Offset(position.positionCoord_x, position.positionCoord_y),
-            6,
+      if (position.collision == 1) {
+        canvas.drawCircle(Offset(position.pos_CoordX, position.pos_CoordY), 6,
             collisionPaint);
       }
     }
@@ -55,6 +57,8 @@ class PathPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => true;
+}
+/*
 
 //TODO: this should be removed once we get real data
   List<PositionEvent> getPositions(int sessionID) {
@@ -100,3 +104,4 @@ class PositionEvent {
     this.positionCoord_y = newYCoord;
   }
 }
+*/

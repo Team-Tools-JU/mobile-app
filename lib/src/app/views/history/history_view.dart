@@ -9,11 +9,15 @@ class HistoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<HistoryViewModel>.reactive(
-      viewModelBuilder: () => HistoryViewModel(),
-      onModelReady: (model) => model.init(),
-      builder: (context, model, child) => Scaffold(
-        body: MowerPathStateless(model),
-      ),
-    );
+        viewModelBuilder: () => HistoryViewModel(),
+        onModelReady: (model) => model.init(),
+        builder: (context, model, child) => model.complete
+            ? Scaffold(
+                body: Column(
+                children: [
+                  MowerPathStateless(model),
+                ],
+              ))
+            : CircularProgressIndicator());
   }
 }
