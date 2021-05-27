@@ -1,3 +1,4 @@
+
 # **Software Design Description: App**
 
 ## Introduction
@@ -208,15 +209,70 @@ The app visualizes buttons for the user to press, that will steer the mower. Thi
 The app recieves data from the mower, by calling *getSignalStrength()* and updates the view, which visualizes how close the mower is to an object and tells the user if a collision has occurred.   
 
 
-## Getting Started
+# Software Design Description: Database & Datahandler
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+The backend along with the application utilizes Firebase Realtime Database for storage and retrieval of the data sent from the Mower. Each of position covered by the Mower is stored in the database along with a unique ID, called sessionID which consists of the date and time of the session start.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Using the shared database, the stored information is retrieved and displayed in the mobile application. To handle the data about the positions, a separate class is created, *positionEvent*. The *positionEvent* object has a Boolean attribute which helps to determine if a collision has occurred in that position. Further reason for creating the class is for calculation of the X and Y coordinates, using the given vectors from the Mower. This calculation is done in withing the class and the coordinates set thereafter. 
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+To handle storage of the data and its retrieval, another class called *Database* is created. This class stores, deletes, and retrieves data from the Firebase database. The functions are written to distinguish between positions covered by the Mower and position in which collision has occurred. 
+
+
+## PositionEvent Class
+The PositionEvent Class contains the following methods. 
+
+### PositionEvent (num angle, int length, String positionDateTime, num pos_CoordX, num pos_CoordY, {int sessionID})
+The constructor of the  which sets the values required for an positionEvent object. 
+
+### void calculateCoordX (num angle, int length)
+Given the angle and the lenght of the vector the X coordinate is calculated.
+
+### void calculateCoordY (num angle, int lenght)
+Given the angle and the lenght of the vector the Y coordinate is calculated.
+
+### int getXCoord ()
+Getter; returning the object's X coordinate.
+
+### int getYCoord ()
+Getter; returning the object's Y coordinate.
+
+### String getpositionDate ()
+Getter; returning the date and time when the position was covered. 
+
+### void setXCoord (int newXCoord)
+Setter; sets the X coordinate for the object.
+
+### void setYCoord (int newYCoord)
+Setter; sets the Y coordinate for the object.
+
+### void setDate (String newDate)
+Setter; sets new date and time at which the position was covered. 
+
+## Database Class
+This class is responsible for storing, retrieving, and deleting data in the database. 
+
+### void addPositionEvent(PositionEvent positionEvent)
+Creates a new *positionEvent* in the database using the *sessionID* from the parameter and sets the values for it. 
+
+### List<String> getAllPositions(String sessionID)
+Returns the a list with all the *positionEvents* that match the *sessionID* given in the parameter. The retrieved objects are ordered by the *seessionID* 
+
+### void deletePositionEvent(String sessionID)
+Deletes all the *positionEvents* that match the *sessionID* given in the paramenter. 
+
+### void addCollisionEvent(PositionEvent collisionPosition)
+Takes a *positionEvent* and creates a new *collisionEvent* in the database if the *positionEvent* is a position where a collision has occured.
+
+### List<String> getAllCollisionEvents() 
+Returns a list of all *collisionEvents* stored in the database. 
+
+### void deleteCollisionEvent(String sessionID)
+Deletes the *collisionEvent* that matches the *sessionID* given in the parameter. 
+
+## Requirements
+### B1.1: The Backend shall read positions from the Mower and save these in a file.
+The data about each position is sent from the Mower to the database, where it is stored in Firebase Realtime Database. 
+
+### B1.2: The Backend shall record each position where collisions avoidance are activated.
+Each position that the Mower has covered has a boolean attribute which determines if a collision has occured at that position. 
