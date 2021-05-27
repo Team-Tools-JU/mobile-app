@@ -36,21 +36,8 @@ class Database {
       });
     }
     print(sessions);
-    return sessions;
+    List<Session> reversedList = sessions.reversed.toList();
+
+    return reversedList;
   }
 }
-
-/*
-    positionEvents.once().then((DataSnapshot dataSnapshot) {
-      if (dataSnapshot.value != null) {
-        dataSnapshot.value.forEach((key, value) {
-          Session session = Session(value);
-          session.setDate(key);
-          sessions.add(session);
-        });
-      }
-
-      return sessions;
-    });
-  }
-  */
