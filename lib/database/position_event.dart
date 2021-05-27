@@ -4,11 +4,10 @@ import 'dart:convert';
 import 'package:get/get.dart';
 
 class Session {
-  late DateTime date;
+  late String date;
   late List<PositionEvent> positions;
 
-  Session(key, value) {
-    date = DateTime.parse(key);
+  Session(value) {
     positions = [];
     value.forEach((key, value) {
       PositionEvent position =
@@ -18,16 +17,16 @@ class Session {
   }
 
   void setDate(String key) {
-    date = DateTime.parse(key);
+    date = key;
   }
 }
 
 class PositionEvent {
   int collision;
-  num angle; // 180 - (-180)
+  double angle; // 180 - (-180)
   int length; //Lenght in mm
-  late num pos_CoordX;
-  late num pos_CoordY;
+  late double pos_CoordX;
+  late double pos_CoordY;
 
   PositionEvent(
       {required this.angle, required this.length, required this.collision}) {
@@ -39,15 +38,15 @@ class PositionEvent {
       : this(
           collision: int.parse(json['collision'] as String),
           length: int.parse(json['length'] as String),
-          angle: num.parse(json['angle'] as String),
+          angle: double.parse(json['angle'] as String),
         );
 
   void calculateCoordX(num angle, int length) {
-    setXCoord((length * cos(angle)).toInt());
+    setXCoord((length * cos(angle)));
   }
 
   void calculateCoordY(num angle, int length) {
-    setYCoord(length * sin(angle).toInt());
+    setYCoord((length * sin(angle)));
   }
 
   num getXCoord() {
@@ -58,11 +57,11 @@ class PositionEvent {
     return this.pos_CoordY;
   }
 
-  void setXCoord(int newXCoord) {
+  void setXCoord(double newXCoord) {
     this.pos_CoordX = newXCoord;
   }
 
-  void setYCoord(int newYCoord) {
+  void setYCoord(double newYCoord) {
     this.pos_CoordY = newYCoord;
   }
 }

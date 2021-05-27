@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_notifier.dart';
 import 'package:mobile_app/database/position_event.dart';
 
 class Database {
@@ -22,20 +23,34 @@ class Database {
     return positions;
   }
 
-  void getAllSessions() {
-    positionEvents.once().then((DataSnapshot dataSnapshot) {
-      List<Session> sessions = [];
+  Future<List<Session>> getAllSessions() async {
+    List<Session> sessions = [];
 
+    DataSnapshot dataSnapshot = await positionEvents.once();
+
+    if (dataSnapshot.value != null) {
+      dataSnapshot.value.forEach((key, value) {
+        Session session = Session(value);
+        session.setDate(key);
+        sessions.add(session);
+      });
+    }
+    print(sessions);
+    return sessions;
+  }
+}
+
+/*
+    positionEvents.once().then((DataSnapshot dataSnapshot) {
       if (dataSnapshot.value != null) {
         dataSnapshot.value.forEach((key, value) {
-          Session session = Session(key, value);
+          Session session = Session(value);
           session.setDate(key);
           sessions.add(session);
         });
-        sessions.forEach((element) {
-          print(element.date);
-        });
       }
+
+      return sessions;
     });
   }
-}
+  */

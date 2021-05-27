@@ -11,21 +11,13 @@ class HistoryView extends StatelessWidget {
     return ViewModelBuilder<HistoryViewModel>.reactive(
         viewModelBuilder: () => HistoryViewModel(),
         onModelReady: (model) => model.init(),
-        builder: (context, model, child) => Scaffold(
+        builder: (context, model, child) => model.complete
+            ? Scaffold(
                 body: Column(
-              children: [
-                MowerPathStateless(model),
-                TextButton(
-                  style: ButtonStyle(
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.blue),
-                  ),
-                  onPressed: () {
-                    model.getData();
-                  },
-                  child: Text('TextButton'),
-                ),
-              ],
-            )));
+                children: [
+                  MowerPathStateless(model),
+                ],
+              ))
+            : CircularProgressIndicator());
   }
 }
