@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_app/src/app/models/implementation/position_event.dart';
 import 'package:mobile_app/src/app/models/constants/text_constants.dart';
 import '../../../view_models/history_view_model.dart';
 
@@ -17,7 +18,7 @@ class MowerSessionsStateless extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0), border: Border.all()),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
-            value: model.currentSession,
+            value: model.currentSessionDate,
             icon: Icon(Icons.arrow_drop_down),
             iconSize: 35,
             elevation: 16,
@@ -29,20 +30,23 @@ class MowerSessionsStateless extends StatelessWidget {
               // TODO: Send data to Painter to draw new session
             },
             // TODO: Retrieve the sessions from backend and add to list
-            items: <String>[
-              SESSION_1_LABEL,
-              SESSION_2_LABEL,
-              SESSION_3_LABEL,
-              SESSION_4_LABEL
-            ].map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
+            items: buildDropdownMenuItems(model.sessions),
           ),
         ),
       ),
     );
   }
+}
+
+List<DropdownMenuItem<String>> buildDropdownMenuItems(List sessions) {
+  List<DropdownMenuItem<String>> items = [];
+  for (Session session in sessions) {
+    items.add(
+      DropdownMenuItem(
+        value: session.date,
+        child: Text(session.date),
+      ),
+    );
+  }
+  return items;
 }

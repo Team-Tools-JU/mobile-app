@@ -34,7 +34,9 @@ class Database {
         sessions.add(session);
       });
     }
+    print(sessions);
+    List<Session> reversedList = sessions.reversed.toList();
 
-    return sessions;
+    return reversedList;
   }
 }
