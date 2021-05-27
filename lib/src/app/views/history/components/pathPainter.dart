@@ -1,25 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_app/database/position_event.dart';
-import 'dart:math';
-
+import 'package:mobile_app/src/app/models/implementation/position_event.dart';
 import 'package:mobile_app/src/app/view_models/history_view_model.dart';
 
 class PathPainter extends CustomPainter {
-  //final List<PositionEvent> positionEvents;
   final HistoryViewModel model;
   const PathPainter(this.model);
 
-/*
-  set positions(positions) {
-    this.positionEvents = positions;
-  }
-  */
-
-  //PathPainter({required this.positionEvents});
-
   @override
   void paint(Canvas canvas, Size size) {
-    //these 2 lines should be removed when paint is created with real data
     List<PositionEvent> positionEvents = model.getCurrentSession();
 
     Paint collisionPaint = Paint()

@@ -1,7 +1,7 @@
-import 'package:mobile_app/database/database.dart';
-import 'package:mobile_app/database/position_event.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mobile_app/src/app/models/implementation/database.dart';
+import 'package:mobile_app/src/app/models/implementation/position_event.dart';
 import 'package:mobile_app/src/app/models/constants/text_constants.dart';
-import 'package:mobile_app/src/app/views/history/components/pathPainter.dart';
 import 'package:stacked/stacked.dart';
 
 class HistoryViewModel extends BaseViewModel {
@@ -13,7 +13,7 @@ class HistoryViewModel extends BaseViewModel {
 
   void init() async {
     _currentSession = SESSION_1_LABEL;
-    _sessions = await Database().getAllSessions();
+    _sessions = await GetIt.I<Database>().getAllSessions();
     complete = true;
     notifyListeners();
   }
