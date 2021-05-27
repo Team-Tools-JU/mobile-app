@@ -1,6 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_notifier.dart';
-import 'package:mobile_app/database/position_event.dart';
+import 'package:mobile_app/src/app/models/implementation/position_event.dart';
 
 class Database {
   final DatabaseReference positionEvents =
