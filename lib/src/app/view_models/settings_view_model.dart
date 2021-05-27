@@ -34,7 +34,6 @@ class SettingsViewModel extends BaseViewModel {
         Future.delayed(
             Duration(seconds: 2), () => Get.off(() => SteeringView()));
       }
-      //
     });
 
     _bluetooth.isConnectedStream.stream.listen((state) async {

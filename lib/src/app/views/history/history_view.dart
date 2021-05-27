@@ -18,6 +18,6 @@ class HistoryView extends StatelessWidget {
                   MowerPathStateless(model),
                 ],
               ))
-            : CircularProgressIndicator());
+            : Center(child: CircularProgressIndicator()));
   }
 }
