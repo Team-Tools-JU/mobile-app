@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_app/src/app/models/implementation/position_event.dart';
-import 'package:mobile_app/src/app/models/constants/text_constants.dart';
 import '../../../view_models/history_view_model.dart';
 
 class MowerSessionsStateless extends StatelessWidget {
