@@ -6,7 +6,7 @@ class Database {
       FirebaseDatabase.instance.reference();
 
   void addPositionEvent(PositionEvent positionEvent) {
-    positionEvents.child(positionEvent.sessionID.toString()).set({
+    positionEvents.child(positionEvent.toString()).set({
       'angle': positionEvent.angle.toString(),
       'collision': positionEvent.collision.toString(),
       'lenght': positionEvent.length.toString()
@@ -23,8 +23,19 @@ class Database {
   }
 
   void getAllSessions() {
-    positionEvents.once().then((DataSnapshot snapshot) {
-      print('Data : ${snapshot.value}');
+    positionEvents.once().then((DataSnapshot dataSnapshot) {
+      List<Session> sessions = [];
+
+      if (dataSnapshot.value != null) {
+        dataSnapshot.value.forEach((key, value) {
+          Session session = Session(key, value);
+          session.setDate(key);
+          sessions.add(session);
+        });
+        sessions.forEach((element) {
+          print(element.date);
+        });
+      }
     });
   }
 }

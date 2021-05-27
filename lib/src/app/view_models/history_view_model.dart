@@ -8,6 +8,9 @@ class HistoryViewModel extends BaseViewModel {
 
   void init() {
     _firstSession = SESSION_1_LABEL;
+  }
+
+  void getData() {
     Database().getAllSessions();
   }
 
