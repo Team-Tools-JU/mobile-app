@@ -53,6 +53,8 @@ class HistoryViewModel extends BaseViewModel {
   }
 
   List<PositionEvent> getCurrentSession() {
-    return _sessions[_currentIndex].positions;
+    return _sessions.length > _currentIndex
+        ? _sessions[_currentIndex].positions
+        : [];
   }
 }

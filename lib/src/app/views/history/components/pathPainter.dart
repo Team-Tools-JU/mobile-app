@@ -21,26 +21,28 @@ class PathPainter extends CustomPainter {
 
     Path path = Path();
 
-    PositionEvent origin = positionEvents[0];
-    path.moveTo(origin.pos_CoordX, origin.pos_CoordY);
-    for (PositionEvent position in positionEvents) {
-      path.lineTo(position.pos_CoordX, position.pos_CoordY);
+    if (positionEvents.isNotEmpty) {
+      PositionEvent origin = positionEvents[0];
+      path.moveTo(origin.pos_CoordX, origin.pos_CoordY);
+      for (PositionEvent position in positionEvents) {
+        path.lineTo(position.pos_CoordX, position.pos_CoordY);
 
-      if (position.collision == 1) {
-        canvas.drawCircle(Offset(position.pos_CoordX, position.pos_CoordY), 6,
-            collisionPaint);
+        if (position.collision == 1) {
+          canvas.drawCircle(Offset(position.pos_CoordX, position.pos_CoordY), 6,
+              collisionPaint);
+        }
       }
+
+      //canvas.scale(x_scale, y_scale);
+      //This allows us to get the bounds of the path we will paint, don't know how to scale it to fit the canvas..
+      Rect bounds = path.getBounds();
+      var left = bounds.left;
+      var right = bounds.right;
+      var top = bounds.top;
+      var bottom = bounds.bottom;
+
+      canvas.drawPath(path, pathPaint);
     }
-
-    //canvas.scale(x_scale, y_scale);
-    //This allows us to get the bounds of the path we will paint, don't know how to scale it to fit the canvas..
-    Rect bounds = path.getBounds();
-    var left = bounds.left;
-    var right = bounds.right;
-    var top = bounds.top;
-    var bottom = bounds.bottom;
-
-    canvas.drawPath(path, pathPaint);
   }
 
   @override
