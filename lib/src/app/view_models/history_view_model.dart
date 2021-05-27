@@ -6,9 +6,10 @@ import 'package:stacked/stacked.dart';
 
 class HistoryViewModel extends BaseViewModel {
   late String _currentSession;
-  int _currentIndex = 0;
   late List<Session> _sessions;
+  int _currentIndex = 0;
   bool complete = false;
+
   String get currentSession => _currentSession;
 
   void init() async {
@@ -17,10 +18,6 @@ class HistoryViewModel extends BaseViewModel {
     complete = true;
     notifyListeners();
   }
-
-  // Future<void> getData() async {
-  //   _sessions = await Database().getAllSessions();
-  // }
 
   setSessionName(String newSession) {
     _currentSession = newSession;

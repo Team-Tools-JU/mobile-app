@@ -18,7 +18,7 @@ class Database {
     positionEvents.orderByChild(sessionID).once().then((DataSnapshot snapshot) {
       positions.add(snapshot.value.toString());
     });
-    print(positions);
+
     return positions;
   }
 
@@ -34,22 +34,7 @@ class Database {
         sessions.add(session);
       });
     }
-    print(sessions);
+
     return sessions;
   }
 }
-
-/*
-    positionEvents.once().then((DataSnapshot dataSnapshot) {
-      if (dataSnapshot.value != null) {
-        dataSnapshot.value.forEach((key, value) {
-          Session session = Session(value);
-          session.setDate(key);
-          sessions.add(session);
-        });
-      }
-
-      return sessions;
-    });
-  }
-  */
