@@ -6,9 +6,15 @@ class Session {
 
   Session(value) {
     positions = [];
+    PositionEvent previousPosition =
+        PositionEvent(angle: 0, length: 0, collision: 0);
+    positions.add(previousPosition);
     value.forEach((key, value) {
-      PositionEvent position =
-          PositionEvent.fromJson(Map<String, Object>.from(value));
+      print("here is the value:");
+      print(value);
+      PositionEvent position = PositionEvent.fromJson(
+          Map<String, Object>.from(value), previousPosition);
+      previousPosition = position;
       positions.add(position);
     });
   }
@@ -19,6 +25,7 @@ class Session {
 }
 
 class PositionEvent {
+  PositionEvent? previousPosition;
   int collision;
   double angle; // 180 - (-180)
   int length; //Lenght in mm
@@ -26,24 +33,39 @@ class PositionEvent {
   late double pos_CoordY;
 
   PositionEvent(
-      {required this.angle, required this.length, required this.collision}) {
+      {required this.angle,
+      required this.length,
+      required this.collision,
+      this.previousPosition}) {
     this.calculateCoordX(angle, length);
     this.calculateCoordY(angle, length);
   }
 
-  PositionEvent.fromJson(Map<String, Object> json)
+  PositionEvent.fromJson(
+      Map<String, Object> json, PositionEvent previousPosition)
       : this(
           collision: int.parse(json['collision'] as String),
           length: int.parse(json['length'] as String),
           angle: double.parse(json['angle'] as String),
+          previousPosition: previousPosition,
         );
 
   void calculateCoordX(num angle, int length) {
-    setXCoord((length * cos(angle)));
+    if (previousPosition == null) {
+      setXCoord((length * cos((pi / 180) * angle)));
+    } else {
+      setXCoord(
+          (length * cos((pi / 180) * angle)) + previousPosition!.pos_CoordX);
+    }
   }
 
   void calculateCoordY(num angle, int length) {
-    setYCoord((length * sin(angle)));
+    if (previousPosition == null) {
+      setYCoord((length * sin((pi / 180) * angle)));
+    } else {
+      setYCoord(
+          (length * sin((pi / 180) * angle)) + previousPosition!.pos_CoordY);
+    }
   }
 
   num getXCoord() {

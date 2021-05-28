@@ -10,6 +10,15 @@ class PathPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     List<PositionEvent> positionEvents = model.getCurrentSession();
 
+    positionEvents.forEach((element) {
+      print(element.getXCoord().toString());
+      print(element.getYCoord().toString());
+    });
+
+    Paint startPaint = Paint()
+      ..color = Colors.green
+      ..style = PaintingStyle.fill;
+
     Paint collisionPaint = Paint()
       ..color = Colors.red
       ..style = PaintingStyle.fill;
@@ -26,6 +35,10 @@ class PathPainter extends CustomPainter {
     if (positionEvents.isNotEmpty) {
       PositionEvent origin = positionEvents[0];
       path.moveTo(origin.pos_CoordY * scale, origin.pos_CoordX * scale);
+      canvas.drawCircle(
+          Offset(origin.pos_CoordY * scale, origin.pos_CoordX * scale),
+          6,
+          startPaint);
       for (PositionEvent position in positionEvents) {
         path.lineTo(position.pos_CoordY * scale, position.pos_CoordX * scale);
 
